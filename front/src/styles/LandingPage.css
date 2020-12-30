@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Inconsolata:wght@500&family=Libre+Baskerville&family=Staatliches&display=swap');
+.container{
+    display: block;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+
+}
+.mainEnter{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    background: rgb(34,184,195);
+    background: linear-gradient(170deg, rgba(34, 184, 195, 0.233) 45%, rgba(255,255,255,0.7600082269235819) 25%);
+    height: 60vh;
+    justify-content: space-around;
+    align-items: center;
+    /* border-bottom: 0.3rem solid rgb(187, 187, 187); */
+}
+
+.leftSide{
+    order:4;
+
+}
+.center{
+    display: flex;
+    order:-1;
+    font-size: 2em;
+    font-family: 'Libre Baskerville', serif;
+    justify-items: center;
+    align-items: center;
+}
+.rightSide{
+    order:2;
+
+}
+.computer{
+
+    width: 100%;
+    max-width: 20em;
+    height: auto;
+    z-index: 40;
+    overflow: none;
+}
+
+.people{
+    width: 100%;
+    max-width: 20em;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: auto;
+}
+
+.readMore{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background: rgb(34,184,195);
+    background: linear-gradient(-10deg, rgba(34, 184, 195, 0.158) 45%, rgba(255,255,255,0.7600082269235819) 25%);
+
+    height: 40vh;
+    justify-content: center;
+    align-items: center;
+}
+.maybeform{
+    margin: 10em;
+}
+.clientBtn{
+    padding-left: 1.5vw;
+    padding-top: 1.4vh;
+    padding-right:1.5vw;
+    padding-bottom:1.4vh ;
+    border-radius: 4px;
+    font-family: 'Staatliches', cursive;
+    font-size: 1.5vw;
+    background-color: rgb(255, 255, 255);
+    border-color: rgba(34, 184, 195, 0.411);
+    color: rgba(34, 184, 195, 0.685) ;
+    
+}
+
+.clientBtn:hover{
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+    background-color:rgb(34, 184, 195) ;
+    border-color: rgba(34, 184, 195, 0.411);
+    color: rgb(255, 255, 255) ;
+}

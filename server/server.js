@@ -16,9 +16,9 @@ app.use(function (req, res, next) {
     next()
 })
 
-app.use('/api/client/', clientRoute)
-app.use('/api/brend/', brendtRoute)
-app.use('/api/post/', postRoute)
+app.use('/api/clients/', clientRoute)
+app.use('/api/brends/', brendtRoute)
+app.use('/api/posts/', postRoute)
 
 
 
