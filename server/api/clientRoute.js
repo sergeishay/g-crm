@@ -17,7 +17,24 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
       acquire: dbConfig.pool.acquire,
       idle: dbConfig.pool.idle
     }
-  });G
+  });
+
+  console.log(sequelize)
+
+try {
+ sequelize.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+// clientRouter.get('/', async function (req, res) {
+//     const users = await sequelize
+//         .query(`SELECT * FROM Users`)
+//     res.send(users[0])
+// }
+// )
+
+
 
 
 

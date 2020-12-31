@@ -1,13 +1,47 @@
 import React from 'react'
-import { Router, Route, Switch } from 'react-router-dom'
+import '../styles/LandingPage.css'
+import { Router, Route, Switch, Link } from 'react-router-dom'
+import computer from '../assets/computer.png'
+import people from '../assets/people.png'
+import mainPage from '../assets/hello.png'
+import social3 from '../assets/as.png'
+
 
 
 function LandingPage() {
-    return(
-        <div>
-            <p>this is a landing part</p>
+
+
+
+
+
+
+
+
+
+
+    
+    return (
+        <div className="container">
+            <div className="mainEnter">
+                <div className="mainPageImgDiv">
+                    <img className="mainPageImg" src={mainPage} alt="" />
+                </div>
+                <div className='socialImgDiv'>
+                    <img className="socialImg" src={social3} alt="" />
+                </div>
+            </div>
+
+
+            <div className='readMore'>
+                <div className="maybeform">
+                    <Link to='/clients'><button className="clientBtn">Take Me To Client Page</button></Link>
+                </div>
+            </div>
+
         </div>
     )
 }
 
 export default LandingPage
+
+

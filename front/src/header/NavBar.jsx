@@ -1,51 +1,25 @@
-import React, { useState } from 'react';
-import LeftMenu from './Sections/LeftMenu';
-import RightMenu from './Sections/RightMenu';
-import { Drawer, Button} from 'antd';
-import './Sections/Navbar.css';
+import React from 'react'
+import {Nav , NavBtnLink , NavLink , NavMenu , NavBtn , Bars } from './NavBarElements'
 
-function NavBar() {
-  const [visible, setVisible] = useState(false)
-
-  const showDrawer = () => {
-    setVisible(true)
-  };
-
-  const onClose = () => {
-    setVisible(false)
-  };
-
+const NavBar = () => {
   return (
-    <nav className="menu" style={{ position: 'fixed', zIndex: 5, width: '100%' }}>
-      <div className="menu__logo">
-        <a href="/">Logo</a>
-      </div>
-      <div className="menu__container">
-        <div className="menu_left">
-          <LeftMenu mode="horizontal" />
-        </div>
-        <div className="menu_rigth">
-          <RightMenu mode="horizontal" />
-        </div>
-        <Button
-          className="menu__mobile-button"
-          type="primary"
-          onClick={showDrawer}
-        >
-        </Button>
-        <Drawer
-          title="Basic Drawer"
-          placement="right"
-          className="menu_drawer"
-          closable={false}
-          onClose={onClose}
-          visible={visible}
-        >
-          <LeftMenu mode="inline" />
-          <RightMenu mode="inline" />
-        </Drawer>
-      </div>
-    </nav>
+    <>
+      <Nav>
+         <NavLink to="/"> 
+          <h1>logo</h1>
+         </NavLink>
+         <Bars />
+         <NavMenu>
+            <NavLink to='/about' activeStyle>About</NavLink>
+            <NavLink to='/contact-us' activeStyle>Contact Us</NavLink>
+            <NavLink to='/home' activeStyle>Home</NavLink>
+            <NavLink to='/sign-up' activeStyle>sign-up</NavLink>
+         </NavMenu>
+         <NavBtn>
+            <NavBtnLink to='/signin'>Sign In</NavBtnLink>
+         </NavBtn>
+      </Nav>
+    </>
   )
 }
 

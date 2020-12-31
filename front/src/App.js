@@ -1,14 +1,15 @@
-import './App.css';
-import React from 'react'
+// import './App.css';
+import React , {Component} from 'react'
 import { Router, Route, Switch } from 'react-router-dom'
-import NavBar from './header/NavBar'
+import { useState, useEffect } from 'react'
 import LandingPage from './components/LandingPage'
+import Navbar from './header/NavBar'
+import Layouts from './components/Layout';
 
 function App() {
   return (
-    <div className="App">
-        <NavBar />
-        <LandingPage />
+    <div  className='mainApp'>
+        <Layouts />
     </div>
   );
 }
