@@ -5,12 +5,13 @@ import {FaBars} from 'react-icons/fa'
  
 
 export const Nav = styled.nav`
-background : #000; 
+background : #9f5f80; 
 height : 80px ; 
 display : flex;
 justify-content : space-between ; 
 padding : 0.5rem; calc((100vw - 1000px)/2);
 z-index : 10;
+shadow:1px black;
 `
 
 export const NavLink = styled(Link)`
@@ -18,12 +19,13 @@ color:#fff;
 display:flex;
 align-items:center;
 text-decoration:none;
+font-size:1.5rem;
 padding:0 1rem ;
 height:100%;
 cursor:pointer;
 
 &.active{
-    color : #15cdfc;
+    color : #ff8e71;
 }
 `
 
@@ -63,7 +65,7 @@ margin-right:24px;
 
 export const NavBtnLink =styled(Link)`
 border-radius:4px;
-background:#256ce1;
+background:#ff8e71;
 padding:10px 22px;
 color:#fff;
 border:none;

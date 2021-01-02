@@ -1,10 +1,14 @@
 const clientRoute =require('./api/clientRoute')
 const brendtRoute =require('./api/brendRoute')
 const postRoute =require('./api/postRoute')
+const mongoose = require("mongoose");
 const express = require('express')
 const path = require('path')
 const app = express()
 
+
+
+mongoose.connect('mongodb://localhost/gerzDB', { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(express.static(path.join(__dirname, 'node_modules')))
 app.use(express.json())

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import * as axios from '../../node_modules/axios';
+import  axios from '../../node_modules/axios';
 const ClientsPage = () => {
 
     return (
