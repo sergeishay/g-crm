@@ -6,7 +6,8 @@ const clientsSchema = new Schema({
     clientLink: String,
     brends : [
         { type: Schema.Types.ObjectId, ref: 'Brend' },
-    ]
+    ],
+    urlPick:String,
 })
 
 const Clients = mongoose.model('clients', clientsSchema)

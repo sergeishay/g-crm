@@ -1,10 +1,11 @@
 const clientRoute =require('./api/clientRoute')
 const brendtRoute =require('./api/brendRoute')
 const postRoute =require('./api/postRoute')
-const mongoose = require("mongoose");
 const express = require('express')
+const mongoose = require("mongoose")
 const path = require('path')
 const app = express()
+const cors = require('cors')
 
 
 
@@ -20,9 +21,9 @@ app.use(function (req, res, next) {
     next()
 })
 
-app.use('/api/clients/', clientRoute)
-app.use('/api/brends/', brendtRoute)
-app.use('/api/posts/', postRoute)
+app.use('/clients/', clientRoute)
+app.use('/brends/', brendtRoute)
+app.use('/posts/', postRoute)
 
 
 

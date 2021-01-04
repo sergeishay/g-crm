@@ -1,7 +1,8 @@
 const mongoose = require('mongoose'); // Erase if already required
-
+const Schema = mongoose.Schema
 // Declare the Schema of the Mongo model
-var BrendSchema = new mongoose.Schema({
+var BrendSchema = new Schema({
+    brendName : String,
     indestry:{
         type:String
     },
@@ -23,10 +24,7 @@ var BrendSchema = new mongoose.Schema({
         default : 'RETAINER'
 
     },
-    pricing:{
-        type:Number,
-        required:true,
-    },
+
     posts:[
         { type: Schema.Types.ObjectId, ref: 'Post' },
     ]
