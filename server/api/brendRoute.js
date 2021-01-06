@@ -22,7 +22,7 @@ brendRouter.get('/', (req, res) => {
 
 //////get brend by id
 
-brendRouter.get('/:id', (req, res) => {
+brendRouter.get('/id/:id', (req, res) => {
   const {id} = req.params
   console.log(id)
   Brends.findById(id)
@@ -40,9 +40,8 @@ brendRouter.get('/:id', (req, res) => {
 /// get by brend name
 
 
-brendRouter.get('/:name', (req, res) => {
+brendRouter.get('/name/:name', (req, res) => {
   const name = toLowerCase(req.params.name)
-  console.log(name)
   Brends.findById({brendName: `${name}`})
     .exec((err, singleBrend) => {
       if (err) {
@@ -63,10 +62,9 @@ brendRouter.post('/', (req, res) => {
 });
 
 
-brendRouter.put('/:id', (req, res) => {
+brendRouter.put('/id/:id', (req, res) => {
   const {id} = req.params
-  console.log(id)
-  Brends.findByIdAndUpdate(id).exec((err , response)=>{
+  Brends.findByIdAndUpdate(id  ,req.body ,{new : true}).exec((err , response)=>{
     if(err){
       return res.status(400).send(err)
     }else{
@@ -74,6 +72,10 @@ brendRouter.put('/:id', (req, res) => {
     }
   })
 })
+
+
+
+
 
 
 brendRouter.delete('/:id', (req, res) => {

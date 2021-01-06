@@ -7,7 +7,7 @@ const Clients = require("../models/mainData/Clients")
 
 ///////get all the clients
 
-clientRouter.get('/', (req, res) => {
+clientRouter.get('/',async (req, res) => {
   Clients.find({}).sort({ _id: -1 })
     .exec((err, allClients) => {
       if (err) {
@@ -19,10 +19,10 @@ clientRouter.get('/', (req, res) => {
     });
 });
 
-//////get client by id
+////get client by id
 
-clientRouter.get('/:id', (req, res) => {
-  const {id} = req.params
+clientRouter.get('/id/:id', async (req, res) => {
+  const { id } = req.params
   console.log(id)
   Clients.findById(id)
     .exec((err, singleclient) => {
@@ -37,54 +37,51 @@ clientRouter.get('/:id', (req, res) => {
 
 ////get clients by name 
 
-clientRouter.get('/:name', async (req, res) => {
-  let {name} =req.params
-  json.parse(name)
-  await Clients.find({ clientName:name })
+clientRouter.get('/name/:name', async (req, res) => {
+  let { name } = req.params
+  console.log(name)
+  await Clients.find({ clientName: name })
     .exec((err, singleclient) => {
       if (err) {
-        return res.status(400).send(err)
-
+         console.log("im here")
+        res.status(400).send(err)
       } else {
-        console.log(singleclient)
-        res.status(200).json({ singleclient: singleclient })
+        console.log("im there")
+        res.status(200).send({ singleclient: singleclient })
       };
-    });
+    })
 });
 
 
-
-
-
-
-clientRouter.post('/', (req, res) => {
+clientRouter.post('/',async (req, res) => {
   const client = new Clients(req.body)
   client.save((err, doc) => {
     if (err) return res.json({ success: false, err })
-    return res.status(200).json({ success: true, doc })
+    return res.status(200).send({ success: true, doc })
   });
 });
 
 
-clientRouter.put('/:id', (req, res) => {
-  const {id} = req.params
-  console.log(id)
-  Clients.findByIdAndUpdate(id).exec((err , response)=>{
-    if(err){
-      return res.status(400).send(err)
-    }else{
+clientRouter.put('/id/:id',async (req, res) => {
+  const { id } = req.params
+  Clients.findByIdAndUpdate(id ,req.body ,{new : true}).exec((err, response) => {
+    if (err) {
+      console.log(err)
+      res.status(400).send(err)
+    } else {
+      console.log(response)
       res.status(200).send(response)
     }
   })
 })
 
 
-clientRouter.delete('/:id', (req, res) => {
-  const {id} = req.params
-  Clients.findByIdAndDelete(id).exec((err , response)=>{
-    if(err){
+clientRouter.delete('/id/:id',async (req, res) => {
+  const { id } = req.params
+  Clients.findByIdAndDelete(id).exec((err, response) => {
+    if (err) {
       return res.status(400).send(err)
-    }else{
+    } else {
       res.status(200).send(response)
     }
   })
