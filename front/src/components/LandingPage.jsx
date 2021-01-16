@@ -1,15 +1,18 @@
 import React from 'react'
 import '../styles/LandingPage.css'
 import { Router, Route, Switch, Link } from 'react-router-dom'
-
+import { useState, useEffect } from 'react'
+import axios from '../../node_modules/axios';
 import computer from '../assets/computer.png'
 import people from '../assets/people.png'
 import mainPage from '../assets/hello.png'
 import social3 from '../assets/as.png'
-
+import ClientsPage from './ClientsPage'
 
 
 function LandingPage() {
+
+
     return (
         <div className="container">
             <div className="mainEnter">
