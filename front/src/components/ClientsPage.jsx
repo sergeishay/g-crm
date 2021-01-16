@@ -49,12 +49,11 @@ export default function ClientsPage(props) {
             <div className='addClientDiv'>
                 <Tooltip placement="topLeft" title='add new client'>
                     <Button
-                        
                         className='btnModal'
                         onClick={setModalIsOpenToTrue}
-                         size='large'
-                         icon={<PlusOutlined />}
-                         ></Button>
+                        size='large'
+                        icon={<PlusOutlined />}
+                    ></Button>
                 </Tooltip>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>

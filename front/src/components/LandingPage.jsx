@@ -8,7 +8,7 @@ import people from '../assets/people.png'
 import mainPage from '../assets/hello.png'
 import social3 from '../assets/as.png'
 import ClientsPage from './ClientsPage'
-
+import { observer } from 'mobx-react'
 
 function LandingPage() {
 
