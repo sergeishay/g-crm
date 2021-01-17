@@ -63,7 +63,7 @@ clientRouter.post('/',async (req, res) => {
 });
 
 
-clientRouter.put('/id/:id',async (req, res) => {
+clientRouter.put('/clients/:id',async (req, res) => {
   const { id } = req.params
   console.log(id)
   Clients.findByIdAndUpdate(id ,req.body ,{new : true}).exec((err, response) => {
@@ -78,8 +78,9 @@ clientRouter.put('/id/:id',async (req, res) => {
 })
 
 
-clientRouter.delete('/id/:id',async (req, res) => {
+clientRouter.delete('/:id',async (req, res) => {
   const { id } = req.params
+  console.log(id)
   Clients.findByIdAndDelete(id).exec((err, response) => {
     if (err) {
       return res.status(400).send(err)

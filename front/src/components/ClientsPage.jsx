@@ -29,17 +29,7 @@ export const ClientsPage = observer((props) => {
     const renderPage = () =>{
         ClientStore.getAllClients()
     }
-    const deleteClient = (e)=>{
-        e.stopPropagation();
-        e.preventDefault();
-        const id = e.target.value
-        const name = e.target.name
-        const key = e
-        console.log(id)
-        console.log(name)
-        console.log(key)
-        ClientStore.deleteClient(id)
-    }
+
     useEffect(() => {
         Modal.setAppElement('body')
     }, [ClientStore.listOfClients])
@@ -67,10 +57,9 @@ export const ClientsPage = observer((props) => {
 
             <div className="clientsPageCard">
                 <Row gutter={[16, 16]}>
-                    <React.Fragment key >
+                    <React.Fragment>
                         <CardComponent
                             clients={ClientStore}
-                            deleteClient={deleteClient}
                         />
                     </React.Fragment>
                 </Row>

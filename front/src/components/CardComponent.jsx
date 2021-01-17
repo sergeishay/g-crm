@@ -15,12 +15,12 @@ const CardComponent = observer((props) => {
     // const deleteClient = () => {
     //     props.deleteClient(client.id)
     // }
+    const deleteClient = (id)=>{
+        const clientID = id
+        ClientStore.deleteClient(clientID)
+    }
 
 
-
-    const deleteClient = () =>{
-                                props.deleteClient(client.id)
-                            }
 
     if (clients.length > 0) {
         return (
@@ -39,7 +39,7 @@ const CardComponent = observer((props) => {
                             }
                             actions={[
                                 <EditOutlined key="edit" />,
-                                <DeleteOutlined name={client.clientName} value={client} onClick={deleteClient} key="delete" />
+                                <DeleteOutlined name={client.clientName} value={client} onClick={()=>deleteClient(client.id)}  key="delete" />
                             ]}
                         >
                             <Meta

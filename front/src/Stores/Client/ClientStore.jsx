@@ -47,7 +47,10 @@ import { act } from '@testing-library/react';
 
     }
     @action async deleteClient(id){
-        await axios.delete(`http://localhost:8080/clients` , id)
+        await axios.delete(`http://localhost:8080/clients/${id}`, {id : id})
+        const deleteClient = [...this.listOfClients]
+        deleteClient.filter(clientId => clientId.id===id)
+        console.log(deleteClient)
     }
     
 }
