@@ -55,6 +55,7 @@ clientRouter.get('/name/:name', async (req, res) => {
 
 clientRouter.post('/',async (req, res) => {
   const client = new Clients(req.body)
+  console.log(client)
   client.save((err, doc) => {
     if (err) return res.json({ success: false, err })
     return res.status(200).send({ success: true, doc })
@@ -64,6 +65,7 @@ clientRouter.post('/',async (req, res) => {
 
 clientRouter.put('/id/:id',async (req, res) => {
   const { id } = req.params
+  console.log(id)
   Clients.findByIdAndUpdate(id ,req.body ,{new : true}).exec((err, response) => {
     if (err) {
       console.log(err)

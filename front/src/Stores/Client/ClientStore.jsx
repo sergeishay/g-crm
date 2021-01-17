@@ -42,6 +42,13 @@ import { act } from '@testing-library/react';
         this.listOfClients = listData
         console.log(listData)
     }
+    @action async createClient(newClient){
+        await axios.post(`http://localhost:8080/clients` , newClient)
+
+    }
+    @action async deleteClient(id){
+        await axios.delete(`http://localhost:8080/clients` , id)
+    }
     
 }
 const ClientStoreContext = createContext(new ClientStore())

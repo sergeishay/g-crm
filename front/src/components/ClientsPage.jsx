@@ -14,8 +14,6 @@ import ClientStoreContext from '../Stores/Client/ClientStore';
 export const ClientsPage = observer((props) => {
 
     const ClientStore = useContext(ClientStoreContext)
- 
-    console.log(ClientStore)
     const [clients, setClients] = useState([])
     const [number, setNumber] = useState(0)
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -28,28 +26,25 @@ export const ClientsPage = observer((props) => {
         setModalIsOpen(false)
     }
 
-
+    const renderPage = () =>{
+        ClientStore.getAllClients()
+    }
+    const deleteClient = (e)=>{
+        e.stopPropagation();
+        e.preventDefault();
+        const id = e.target.value
+        const name = e.target.name
+        const key = e
+        console.log(id)
+        console.log(name)
+        console.log(key)
+        ClientStore.deleteClient(id)
+    }
     useEffect(() => {
-        // clientData()
         Modal.setAppElement('body')
-    }, [])
+    }, [ClientStore.listOfClients])
 
-
-
-
-    // const clientData = () => {
-    //     axios.get(`http://localhost:8080/clients`)
-    //         .then((data) => {
-    //             // console.log(data.data.allClients)
-    //             setClients([...clients, ...data.data.allClients])
-    //         })
-    //         .catch((error) => {
-    //             console.log(error)
-    //         })
-    // }
-
-
-    console.log("het")
+    console.log(ClientStore.listOfClients)
     return (
         <div className='clientsPageBody' >
             <div className='addClientDiv'>
@@ -63,7 +58,7 @@ export const ClientsPage = observer((props) => {
                 </Tooltip>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>
-                    <ClientsModal />
+                    <ClientsModal  renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
             </div>
 
@@ -74,7 +69,8 @@ export const ClientsPage = observer((props) => {
                 <Row gutter={[16, 16]}>
                     <React.Fragment key >
                         <CardComponent
-                            clients={clients}
+                            clients={ClientStore}
+                            deleteClient={deleteClient}
                         />
                     </React.Fragment>
                 </Row>

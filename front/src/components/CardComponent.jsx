@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect, useLayoutEffect, useContext } from 'react'
+import { observer } from 'mobx-react-lite'
+import ClientStoreContext from '../Stores/Client/ClientStore';
 import { Card, Avatar, Row } from 'antd';
 import 'antd/dist/antd.css';
-
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 const { Meta } = Card;
 
 
 
-export default function CardComponent(props) {
+const CardComponent = observer((props) => {
+    const ClientStore = useContext(ClientStoreContext)
+    const clients = props.clients.listOfClients
 
-    console.log(props.clients)
-    const clients = props.clients
+    // const deleteClient = () => {
+    //     props.deleteClient(client.id)
+    // }
+
+
+
+    const deleteClient = () =>{
+                                props.deleteClient(client.id)
+                            }
 
     if (clients.length > 0) {
         return (
@@ -29,6 +39,7 @@ export default function CardComponent(props) {
                             }
                             actions={[
                                 <EditOutlined key="edit" />,
+                                <DeleteOutlined name={client.clientName} value={client} onClick={deleteClient} key="delete" />
                             ]}
                         >
                             <Meta
@@ -52,8 +63,8 @@ export default function CardComponent(props) {
         )
     }
 
-}
+})
 
-// export default CardComponent
+export default CardComponent
 
 
