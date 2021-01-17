@@ -1,15 +1,21 @@
 
 import '../styles/CllientsPage.css'
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
 import axios from '../../node_modules/axios';
 import { Tooltip, Button, Row } from 'antd';
 import ClientsModal from './Modals/ClientModal'
 import { EditOutlined, EllipsisOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons';
 import CardComponent from './CardComponent'
 import Modal from 'react-modal'
+import { observer } from 'mobx-react-lite'
+import ClientStoreContext from '../Stores/Client/ClientStore';
 
-export default function ClientsPage(props) {
 
+export const ClientsPage = observer((props) => {
+
+    const ClientStore = useContext(ClientStoreContext)
+ 
+    console.log(ClientStore)
     const [clients, setClients] = useState([])
     const [number, setNumber] = useState(0)
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -24,23 +30,23 @@ export default function ClientsPage(props) {
 
 
     useEffect(() => {
-        clientData()
+        // clientData()
         Modal.setAppElement('body')
     }, [])
 
 
 
 
-    const clientData = () => {
-        axios.get(`http://localhost:8080/clients`)
-            .then((data) => {
-                console.log(data.data.allClients)
-                setClients([...clients, ...data.data.allClients])
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+    // const clientData = () => {
+    //     axios.get(`http://localhost:8080/clients`)
+    //         .then((data) => {
+    //             // console.log(data.data.allClients)
+    //             setClients([...clients, ...data.data.allClients])
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //         })
+    // }
 
 
     console.log("het")
@@ -60,7 +66,7 @@ export default function ClientsPage(props) {
                     <ClientsModal />
                 </Modal>
             </div>
-            {console.log(clients)}
+
 
 
 
@@ -75,5 +81,6 @@ export default function ClientsPage(props) {
             </div>
         </div>
     )
-}
+})
 
+export default ClientsPage
