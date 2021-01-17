@@ -15,9 +15,10 @@ const CardComponent = observer((props) => {
     // const deleteClient = () => {
     //     props.deleteClient(client.id)
     // }
-    const deleteClient = (id)=>{
+    const deleteClient = async (id)=>{
         const clientID = id
-        ClientStore.deleteClient(clientID)
+        await ClientStore.deleteClient(clientID)
+        props.renderPage()
     }
 
 

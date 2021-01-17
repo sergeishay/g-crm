@@ -60,6 +60,7 @@ export const ClientsPage = observer((props) => {
                     <React.Fragment>
                         <CardComponent
                             clients={ClientStore}
+                            renderPage={renderPage}
                         />
                     </React.Fragment>
                 </Row>
