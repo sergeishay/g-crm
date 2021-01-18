@@ -14,10 +14,10 @@ import { act } from '@testing-library/react';
         this.init()
     }
     init = async () => {
-        await this.getAllClients();
+        await this.getAllBrendsByClientID();
     }
 
-    @action async getAllClients(){
+    @action async getAllBrendsByClientID(){
         const listData = [];
         await axios.get(`http://localhost:8080/clients`)
         .then((data) => {

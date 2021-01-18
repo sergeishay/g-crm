@@ -48,7 +48,7 @@ export const ClientsPage = observer((props) => {
                 </Tooltip>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>
-                    <ClientsModal  renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
+                    <ClientsModal newClient={true} edit={false} renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
             </div>
 

@@ -21,7 +21,7 @@ clientRouter.get('/',async (req, res) => {
 
 ////get client by id
 
-clientRouter.get('/id/:id', async (req, res) => {
+clientRouter.get('/:id', async (req, res) => {
   const { id } = req.params
   console.log(id)
   Clients.findById(id)
@@ -63,7 +63,7 @@ clientRouter.post('/',async (req, res) => {
 });
 
 
-clientRouter.put('/clients/:id',async (req, res) => {
+clientRouter.put('/:id',async (req, res) => {
   const { id } = req.params
   console.log(id)
   Clients.findByIdAndUpdate(id ,req.body ,{new : true}).exec((err, response) => {

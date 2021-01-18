@@ -2,6 +2,7 @@ const mongoose = require('mongoose'); // Erase if already required
 const Schema = mongoose.Schema
 // Declare the Schema of the Mongo model
 var BrendSchema = new Schema({
+    clientBrendName : String,
     brendName : String,
     indestry:{
         type:String

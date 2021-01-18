@@ -5,4 +5,6 @@
 } */
 /* .cardComp{
     margin-top:5rem;
+    display: inline-block;
+    flex-direction: row;
 } */
