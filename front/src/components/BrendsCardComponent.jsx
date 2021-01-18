@@ -6,7 +6,6 @@ import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined, SettingOutlined } from '@ant-design/icons';
 import UpdateModal from './Modals/UpdateModal';
 import Modal from 'react-modal';
-import BrendPage from './BrendPage'
 const { Meta } = Card;
 
 
