@@ -1,15 +1,21 @@
 
 import '../styles/CllientsPage.css'
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
 import axios from '../../node_modules/axios';
 import { Tooltip, Button, Row } from 'antd';
 import ClientsModal from './Modals/ClientModal'
 import { EditOutlined, EllipsisOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons';
 import CardComponent from './CardComponent'
 import Modal from 'react-modal'
+import { observer } from 'mobx-react-lite'
+import ClientStoreContext from '../Stores/Client/ClientStore';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-export default function ClientsPage(props) {
 
+
+export const ClientsPage = observer((props) => {
+
+    const ClientStore = useContext(ClientStoreContext)
     const [clients, setClients] = useState([])
     const [number, setNumber] = useState(0)
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -22,28 +28,19 @@ export default function ClientsPage(props) {
         setModalIsOpen(false)
     }
 
-
-    useEffect(() => {
-        clientData()
-        Modal.setAppElement('body')
-    }, [])
-
-
-
-
-    const clientData = () => {
-        axios.get(`http://localhost:8080/clients`)
-            .then((data) => {
-                console.log(data.data.allClients)
-                setClients([...clients, ...data.data.allClients])
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+    const renderPage = () => {
+        ClientStore.getAllClients()
     }
 
+    useEffect(() => {
+        Modal.setAppElement('body')
+    }, [ClientStore.listOfClients])
 
-    console.log("het")
+    const matches = props.match
+    console.log(matches)
+
+
+    console.log(ClientStore.listOfClients)
     return (
         <div className='clientsPageBody' >
             <div className='addClientDiv'>
@@ -57,23 +54,26 @@ export default function ClientsPage(props) {
                 </Tooltip>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>
-                    <ClientsModal />
+                    <ClientsModal newClient={true} edit={false} renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
             </div>
-            {console.log(clients)}
+
 
 
 
             <div className="clientsPageCard">
                 <Row gutter={[16, 16]}>
-                    <React.Fragment key >
+                    <React.Fragment>
                         <CardComponent
-                            clients={clients}
+                            match={props.match}
+                            clients={ClientStore}
+                            renderPage={renderPage}
                         />
                     </React.Fragment>
                 </Row>
             </div>
         </div>
     )
-}
+})
 
+export default ClientsPage

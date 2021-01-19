@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost/gerzDB', { useNewUrlParser: true, useUnifi
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(express.static(path.join(__dirname, 'node_modules')))
 app.use(express.json())
+app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
@@ -22,7 +23,7 @@ app.use(function (req, res, next) {
 })
 
 app.use('/clients/', clientRoute)
-app.use('/brends/', brendtRoute)
+app.use('/clients/', brendtRoute)
 app.use('/posts/', postRoute)
 
 

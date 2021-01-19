@@ -2,6 +2,7 @@ const mongoose = require('mongoose'); // Erase if already required
 const Schema = mongoose.Schema
 // Declare the Schema of the Mongo model
 var BrendSchema = new Schema({
+    clientBrendId :  { type: Schema.Types.ObjectId, ref: 'Clients' },
     brendName : String,
     indestry:{
         type:String
@@ -16,7 +17,7 @@ var BrendSchema = new Schema({
         type:Number,
     },
     owner :[
-        { type: Schema.Types.ObjectId, ref: 'Employe' }
+        { type: Schema.Types.ObjectId, ref: 'employe' }
     ],
     paymehod:{
         type:String,
@@ -33,5 +34,8 @@ var BrendSchema = new Schema({
 //Export the model
 
 
-const Brend = mongoose.model('brends', BrendSchema)
+const Brend = mongoose.model('Brend', BrendSchema)
 module.exports = Brend
+
+
+// http://localhost:8080/clients/6005a7451baacf5464add47d

@@ -1,10 +1,10 @@
-.clientsPageBody{
-    display: inline;
+/* .clientsPageBody{
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-content: center;
-    width: '100%'; margin: 0 
-}
+    width: '100%'; margin-top: 5rem; 
+} */
 
 .addClientDiv{
     margin-top:2rem;

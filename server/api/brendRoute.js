@@ -6,16 +6,17 @@ const mongoose = require("mongoose");
 const Brends = require("../models/mainData/Brend")
 
 
-/////get all brends
+/////get all brends of this client by id
 
-brendRouter.get('/', (req, res) => {
-  Brends.find({}).sort({ _id: -1 })
-    .exec((err, allBrends) => {
+brendRouter.get('/:id', (req, res) => {
+  const {id} = req.params
+  Brends.find({id}).populate('brends').sort({ _id: -1 })
+    .exec((err, allBrendsForClientById) => {
       if (err) {
         return res.status(400).send(err)
 
       } else {
-        res.status(200).json({ allBrends: allBrends })
+        res.status(200).json({ allBrendsForClientById: allBrendsForClientById })
       };
     });
 });
@@ -54,8 +55,8 @@ brendRouter.get('/name/:name', (req, res) => {
 });
 
 brendRouter.post('/', (req, res) => {
-  const client = new Brends(req.body)
-  client.save((err, doc) => {
+  const brend = new Brends(req.body)
+  brend.save((err, doc) => {
     if (err) return res.json({ success: false, err })
     return res.status(200).json({ success: true, doc })
   });

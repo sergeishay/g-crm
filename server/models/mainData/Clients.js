@@ -10,5 +10,5 @@ const clientsSchema = new Schema({
     urlPick:String,
 })
 
-const Clients = mongoose.model('clients', clientsSchema)
+const Clients = mongoose.model('Clients', clientsSchema)
 module.exports = Clients
