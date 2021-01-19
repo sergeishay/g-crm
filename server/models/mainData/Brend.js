@@ -1,28 +1,41 @@
 const mongoose = require('mongoose'); // Erase if already required
-
+const Schema = mongoose.Schema
 // Declare the Schema of the Mongo model
-var BrendSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
-        unique:true,
-        index:true,
+var BrendSchema = new Schema({
+    clientBrendId :  { type: Schema.Types.ObjectId, ref: 'Clients' },
+    brendName : String,
+    indestry:{
+        type:String
     },
-    email:{
+    brendLink:{
         type:String,
-        required:true,
-        unique:true,
     },
-    mobile:{
+    dollarCo:{
+        type:Number,
+    },
+    pricing:{
+        type:Number,
+    },
+    owner :[
+        { type: Schema.Types.ObjectId, ref: 'employe' }
+    ],
+    paymehod:{
         type:String,
-        required:true,
-        unique:true,
+        enum : ['RETAINER' , 'SOME' , 'OTHER'],
+        default : 'RETAINER'
+
     },
-    password:{
-        type:String,
-        required:true,
-    },
+
+    posts:[
+        { type: Schema.Types.ObjectId, ref: 'Post' },
+    ]
 });
 
 //Export the model
-module.exports = mongoose.model('User', userSchema);
+
+
+const Brend = mongoose.model('Brend', BrendSchema)
+module.exports = Brend
+
+
+// http://localhost:8080/clients/6005a7451baacf5464add47d
