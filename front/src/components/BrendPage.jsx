@@ -8,13 +8,20 @@ import { EditOutlined, EllipsisOutlined, SettingOutlined, PlusOutlined } from '@
 import CardComponent from './CardComponent'
 import Modal from 'react-modal'
 import { observer } from 'mobx-react-lite'
-import ClientStoreContext from '../Stores/Client/ClientStore';
+import BrendsStoreContext from '../Stores/Brend/BrendStore';
 
 
 export const BrendPage = observer((props) => {
 
-    const ClientStore = useContext(ClientStoreContext)
+    const BrendStore = useContext(BrendsStoreContext)
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const mr = props.match.params
+    console.log(mr)
+    const thisClient = props
+    console.log(thisClient)
+
+
+
 
     const setModalIsOpenToTrue = () => {
         setModalIsOpen(true)
@@ -25,14 +32,14 @@ export const BrendPage = observer((props) => {
     }
 
     const renderPage = () =>{
-        ClientStore.getAllClients()
+        BrendStore.getAllClients()
     }
 
     useEffect(() => {
         Modal.setAppElement('body')
-    }, [ClientStore.listOfClients])
+    }, [BrendStore.listOfClients])
 
-    console.log(ClientStore.listOfClients)
+    console.log(BrendStore.listOfBrendsforClient)
     return (
         <div className='clientsPageBody' >
             <div className='addClientDiv'>
@@ -53,13 +60,10 @@ export const BrendPage = observer((props) => {
 
 
 
-            <div className="clientsPageCard">
+            <div className="BrendPageCard">
                 <Row gutter={[16, 16]}>
                     <React.Fragment>
-                        <CardComponent
-                            clients={ClientStore}
-                            renderPage={renderPage}
-                        />
+
                     </React.Fragment>
                 </Row>
             </div>

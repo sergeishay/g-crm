@@ -9,6 +9,8 @@ import CardComponent from './CardComponent'
 import Modal from 'react-modal'
 import { observer } from 'mobx-react-lite'
 import ClientStoreContext from '../Stores/Client/ClientStore';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 
 
 export const ClientsPage = observer((props) => {
@@ -26,13 +28,17 @@ export const ClientsPage = observer((props) => {
         setModalIsOpen(false)
     }
 
-    const renderPage = () =>{
+    const renderPage = () => {
         ClientStore.getAllClients()
     }
 
     useEffect(() => {
         Modal.setAppElement('body')
     }, [ClientStore.listOfClients])
+
+    const matches = props.match
+    console.log(matches)
+
 
     console.log(ClientStore.listOfClients)
     return (
@@ -59,6 +65,7 @@ export const ClientsPage = observer((props) => {
                 <Row gutter={[16, 16]}>
                     <React.Fragment>
                         <CardComponent
+                            match={props.match}
                             clients={ClientStore}
                             renderPage={renderPage}
                         />

@@ -1,17 +1,19 @@
-import { observable} from 'mobx'
+import { observable } from 'mobx'
 
 export default class BrendData {
-    @observable id 
-    @observable clientBrendName 
+    @observable clientBrendId
+    @observable id
+    @observable clientBrendName
     @observable brendName
-    @observable brendLink 
-    @observable indestry 
+    @observable brendLink
+    @observable indestry
     @observable dollarCo
     @observable pricing
-    @observable owner =[]
-    @observable paymehod 
-    @observable posts =[]
-    constructor(id , clientBrendName , brendName , brendLink , indestry,dollarCo ,pricing ,owner ,paymehod ,posts) {
+    @observable owner = []
+    @observable paymehod
+    @observable posts = []
+    constructor(clientBrendId, id, clientBrendName, brendName, brendLink, indestry, dollarCo, pricing, owner, paymehod, posts) {
+        this.clientBrendId = clientBrendId
         this.id = id
         this.clientBrendName = clientBrendName
         this.brendName = brendName
