@@ -6,6 +6,7 @@ import { Tooltip, Button, Row } from 'antd';
 import ClientsModal from './Modals/ClientModal'
 import { EditOutlined, EllipsisOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons';
 import CardComponent from './CardComponent'
+import BrendsCardComponent from './BrendsCardComponent'
 import Modal from 'react-modal'
 import { observer } from 'mobx-react-lite'
 import BrendsStoreContext from '../Stores/Brend/BrendStore';
@@ -15,11 +16,10 @@ export const BrendPage = observer((props) => {
 
     const BrendStore = useContext(BrendsStoreContext)
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const mr = props.match.params
-    console.log(mr)
-    const thisClient = props
-    console.log(thisClient)
 
+
+    const clientsBrendsById = BrendStore.listOfBrendsforClient
+    console.log(clientsBrendsById)
 
 
 
@@ -31,18 +31,18 @@ export const BrendPage = observer((props) => {
         setModalIsOpen(false)
     }
 
-    const renderPage = () =>{
-        BrendStore.getAllClients()
+    const renderPage = () => {
+        // BrendStore.getAllBrendsByClientID()
     }
 
-    useEffect(() => {
-        Modal.setAppElement('body')
-    }, [BrendStore.listOfClients])
+    // useEffect(() => {
+    //     Modal.setAppElement('body')
+    // },[])
 
-    console.log(BrendStore.listOfBrendsforClient)
+
     return (
-        <div className='clientsPageBody' >
-            <div className='addClientDiv'>
+        <div className='brendPageBody' >
+            <div className='addBrendDiv'>
                 <Tooltip placement="topLeft" title='add new client'>
                     <Button
                         className='btnModal'
@@ -56,14 +56,14 @@ export const BrendPage = observer((props) => {
                     <ClientsModal newClient={true} edit={false} renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
             </div>
-
-
-
-
             <div className="BrendPageCard">
                 <Row gutter={[16, 16]}>
                     <React.Fragment>
-
+                        {/* <BrendsCardComponent
+                            match={props.match}
+                            brends = {BrendStore}
+                            renderPage={renderPage}
+                        /> */}
                     </React.Fragment>
                 </Row>
             </div>

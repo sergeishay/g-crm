@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import ClientStoreContext from '../Stores/Client/ClientStore';
+import BrendStoreContext from '../Stores/Brend/BrendStore';
 import { Card, Avatar, Row } from 'antd';
 import 'antd/dist/antd.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
@@ -14,6 +15,8 @@ const { Meta } = Card;
 
 const CardComponent = observer((props) => {
     const ClientStore = useContext(ClientStoreContext)
+    const BrendsStore = useContext(BrendStoreContext)
+    const listOfClients = ClientStore.listOfClients
     const clients = props.clients.listOfClients
     const [updateClient, setUpdateClient] = useState([])
 
@@ -36,25 +39,32 @@ const CardComponent = observer((props) => {
         let thisClient = ClientStore.listOfClients.filter(client => client.id === id)
         setUpdateClient(thisClient)
     }
-    const linkAndData = (clientData) => {
-        <Link to={`/clients/${clientData.clientName}`}>
-            <BrendPage allData={clientData} />
-        </Link>
+
+    const getBrendsByClientId = (clickClient) => {
+        console.log(clickClient)
+         BrendsStore.getAllBrendsByClientID(clickClient.id)
     }
+
+
+
+
+
+
+
     if (clients.length > 0) {
-        {/*  */ }
+
         return (
             <>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>
                     <UpdateModal renderPage={props.renderPage} newClient={false} edit={true} updateClient={updateClient} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
-                {clients.map((client, i) => {
-                    <BrendPage allData={client.clientName} />
+                {listOfClients.map((client, i) => {
                     return (
+
                         <div key={i} className="cardComp">
                             <Card
-                                
+                                onClick={(() => { getBrendsByClientId(client) })}
                                 style={{ width: 300, margin: 4 }}
                                 title={<Link style={{ color: 'black', underline: 'none' }} to={`/clients/${client.clientName}`}>{client.clientName}</Link>}
                                 cover={<Link to={`/clients/${client.clientName}`}><img
@@ -74,7 +84,9 @@ const CardComponent = observer((props) => {
                                 />
                             </Card>
                         </div>
+
                     )
+
                 }
                 )}
             </>

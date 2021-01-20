@@ -1,45 +1,52 @@
 import React, { Component } from 'react';
-import {observable ,action, computed, get } from 'mobx' ; 
-import {createContext } from 'react';
+import { observable, action, computed, get } from 'mobx';
+import { createContext } from 'react';
 import axios from 'axios'
 import BrendData from './BrendData'
 
 
 
- class BrendsStore {
+class BrendsStore {
     @observable listOfBrendsforClient = [];
 
-    constructor(){
+    constructor() {
         // this.init()
     }
     // init = async () => {
     //     await this.getAllBrendsByClientID();
     // }
     // clientBrendId, id, clientBrendName, brendName, brendLink, indestry, dollarCo, pricing, owner, paymehod, posts
-    @action async getAllBrendsByClientID(id){
-        const listData = [];
+    @action async getAllBrendsByClientID(id) {
+        const listData = []
         await axios.get(`http://localhost:8080/clients/${id}`)
-        .then((data) => {
-            this.listOfBrendsforClient = data.data.allBrendsForClientById;
-            console.log(data)
-            // for(let c of data.data.allClients){
-            //     listData.push(
-            //         new ClientData(
-            //             c._id,
-            //             c.clientName,
-            //             c.clientLink,
-            //             c.brends,
-            //             c.urlPick
-            //         )
-            //     )
-            // }
-        })
-        .catch((error) => {
+            .then((data) => {
+                // console.log(data.data.allBrendsForClientById.brends)
+                for (let b of data.data.allBrendsForClientById.brends) {
+                    listData.push(
+                        new BrendData(
+                            b.clientBrendId,
+                            b._id,
+                            b.clientBrendName,
+                            b.brendName,
+                            b.brendLink,
+                            b.indestry,
+                            b.dollarCo,
+                            b.pricing,
+                            b.owner,
+                            b.paymehod,
+                            b.posts
+                        )
+                    )
+                }
+                this.listOfBrendsforClient = listData
+                return this.listOfBrendsforClient
+            }
+            )
+            .catch ((error) => {
             console.log(error)
         })
-        // this.listOfClients = listData
-        // console.log(listData)
-        console.log(this.listOfBrendsforClient)
+        console.log(listData)
+        // console.log(this.listOfBrendsforClient)
     }
     // @action async getClientById (id){
     //     const data = await axios.get(`http://localhost:8080/clients/${id}`)
@@ -63,7 +70,7 @@ import BrendData from './BrendData'
     //     console.log(data)
     //     await axios.put(`http://localhost:8080/clients/${data.id}` , data)
     // }
-    
+
 }
 const BrendsStoreContext = createContext(new BrendsStore())
 export default BrendsStoreContext;
