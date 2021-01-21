@@ -9,7 +9,7 @@ const Brends = require("../models/mainData/Brend")
 ///////get all the clients
 
 clientRouter.get('/',async (req, res) => {
-  Clients.find({}).sort({ _id: -1 })
+  Clients.find({}).populate("brends").sort({ _id: -1 })
     .exec((err, allClients) => {
       if (err) {
         return res.status(400).send(err)
@@ -21,6 +21,7 @@ clientRouter.get('/',async (req, res) => {
 });
 
 ////get client by id
+
 
 clientRouter.get('/id/:id', async (req, res) => {
   const { id } = req.params
@@ -101,7 +102,7 @@ clientRouter.get('/:id', (req, res) => {
         return res.status(400).send(err)
 
       } else {
-        res.status(200).json({ allBrendsForClientById: allBrendsForClientById })
+        res.status(200).json({ allBrendsForClientById: allBrendsForClientById } )
       };
     });
 });

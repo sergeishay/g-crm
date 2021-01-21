@@ -8,7 +8,7 @@ import BrendData from './BrendData'
 
 class BrendsStore {
     @observable listOfBrendsforClient = [];
-
+    @observable correntClient = [];
     constructor() {
         // this.init()
     }
@@ -17,36 +17,36 @@ class BrendsStore {
     // }
     // clientBrendId, id, clientBrendName, brendName, brendLink, indestry, dollarCo, pricing, owner, paymehod, posts
     @action async getAllBrendsByClientID(id) {
-        const listData = []
+        // this.listOfBrendsforClient = []
         await axios.get(`http://localhost:8080/clients/${id}`)
             .then((data) => {
                 // console.log(data.data.allBrendsForClientById.brends)
-                for (let b of data.data.allBrendsForClientById.brends) {
-                    listData.push(
-                        new BrendData(
-                            b.clientBrendId,
-                            b._id,
-                            b.clientBrendName,
-                            b.brendName,
-                            b.brendLink,
-                            b.indestry,
-                            b.dollarCo,
-                            b.pricing,
-                            b.owner,
-                            b.paymehod,
-                            b.posts
-                        )
-                    )
-                }
-                this.listOfBrendsforClient = listData
-                return this.listOfBrendsforClient
+                // for (let b of data.data.allBrendsForClientById.brends) {
+                //     listData.push(
+                //         new BrendData(
+                //             b.clientBrendId,
+                //             b._id,
+                //             b.clientBrendName,
+                //             b.brendName,
+                //             b.brendLink,
+                //             b.indestry,
+                //             b.dollarCo,
+                //             b.pricing,
+                //             b.owner,
+                //             b.paymehod,
+                //             b.posts
+                //         )
+                //     )
+                // }
+                this.listOfBrendsforClient = data.data.allBrendsForClientById.brends
+                // return this.listOfBrendsforClient
             }
             )
             .catch ((error) => {
             console.log(error)
         })
-        console.log(listData)
-        // console.log(this.listOfBrendsforClient)
+        // console.log(listData)
+        console.log(this.listOfBrendsforClient)
     }
     // @action async getClientById (id){
     //     const data = await axios.get(`http://localhost:8080/clients/${id}`)

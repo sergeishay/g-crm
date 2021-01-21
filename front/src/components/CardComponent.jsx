@@ -19,14 +19,15 @@ const CardComponent = observer((props) => {
     const listOfClients = ClientStore.listOfClients
     const clients = props.clients.listOfClients
     const [updateClient, setUpdateClient] = useState([])
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    console.log(listOfClients)
 
     const deleteClient = async (id) => {
         const clientID = id
         await ClientStore.deleteClient(clientID)
         props.renderPage()
     }
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const setModalIsOpenToTrue = () => {
         setModalIsOpen(true)
@@ -42,9 +43,10 @@ const CardComponent = observer((props) => {
 
     const getBrendsByClientId = (clickClient) => {
         console.log(clickClient)
-         BrendsStore.getAllBrendsByClientID(clickClient.id)
+        BrendsStore.correntClient = [clickClient]
+        // BrendsStore.getAllBrendsByClientID(clickClient.id)
+        console.log(BrendsStore.correntClient)
     }
-
 
 
 

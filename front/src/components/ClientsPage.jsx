@@ -36,8 +36,6 @@ export const ClientsPage = observer((props) => {
         Modal.setAppElement('body')
     }, [ClientStore.listOfClients])
 
-    const matches = props.match
-    console.log(matches)
 
 
     console.log(ClientStore.listOfClients)

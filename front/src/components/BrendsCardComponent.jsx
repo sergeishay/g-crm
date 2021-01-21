@@ -13,7 +13,7 @@ const { Meta } = Card;
 
 const BrendsCardComponent = observer((props) => {
     const BrendsStore = useContext(BrendsStoreContext)
-    const listOfBrends = BrendsStore.listOfBrendsforClient.brends
+    const  listOfBrends = BrendsStore.listOfBrendsforClient
     const propsOfBrends = props.brends
     console.log(propsOfBrends)
     console.log(listOfBrends)
@@ -38,7 +38,9 @@ const BrendsCardComponent = observer((props) => {
         // let thisClient = ClientStore.listOfClients.filter(client => client.id === id)
         // setUpdateClient(thisClient)
     }
-
+    useEffect(() => {
+        Modal.setAppElement('body')
+    }, [])
     if (listOfBrends.length > 0) {
         return (
             <>
@@ -51,7 +53,7 @@ const BrendsCardComponent = observer((props) => {
                         <div key={i} className="cardComp">
                             <Card
                                 style={{ width: 300, margin: 4 }}
-                                title={brend.clientName}
+                                title={brend.brendName}
                                 cover={<img
                                     alt="example"
                                     src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"

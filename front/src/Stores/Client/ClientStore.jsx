@@ -22,7 +22,7 @@ import { act } from '@testing-library/react';
         await axios.get(`http://localhost:8080/clients`)
         .then((data) => {
             // id , clientName , clientLink , brends , urlPick
-            // console.log(data.data.allClients)
+            console.log(data.data.allClients)
             this.listOfClients = data.data.allClients;
             for(let c of data.data.allClients){
                 listData.push(

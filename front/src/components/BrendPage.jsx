@@ -18,7 +18,7 @@ export const BrendPage = observer((props) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
 
-    const clientsBrendsById = BrendStore.listOfBrendsforClient
+    const clientsBrendsById = BrendStore.correntClient
     console.log(clientsBrendsById)
 
 
@@ -41,8 +41,8 @@ export const BrendPage = observer((props) => {
 
 
     return (
-        <div className='brendPageBody' >
-            <div className='addBrendDiv'>
+        <div className='clientsPageBody' >
+            <div className='addClientDiv'>
                 <Tooltip placement="topLeft" title='add new client'>
                     <Button
                         className='btnModal'
@@ -56,14 +56,14 @@ export const BrendPage = observer((props) => {
                     <ClientsModal newClient={true} edit={false} renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
             </div>
-            <div className="BrendPageCard">
+            <div className="clientsPageCard">
                 <Row gutter={[16, 16]}>
                     <React.Fragment>
-                        {/* <BrendsCardComponent
+                        <BrendsCardComponent
                             match={props.match}
                             brends = {BrendStore}
                             renderPage={renderPage}
-                        /> */}
+                        />
                     </React.Fragment>
                 </Row>
             </div>
