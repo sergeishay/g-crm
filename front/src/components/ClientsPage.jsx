@@ -34,7 +34,7 @@ export const ClientsPage = observer((props) => {
 
     useEffect(() => {
         Modal.setAppElement('body')
-    }, [ClientStore.listOfClients])
+    }, [])
 
 
 

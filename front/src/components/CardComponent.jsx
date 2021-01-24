@@ -61,7 +61,7 @@ const CardComponent = observer((props) => {
                     <button onClick={setModalIsOpenToFalse}>x</button>
                     <UpdateModal renderPage={props.renderPage} newClient={false} edit={true} updateClient={updateClient} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
-                {listOfClients.map((client, i) => {
+                {listOfClients && listOfClients.map((client, i) => {
                     return (
 
                         <div key={i} className="cardComp">
@@ -70,7 +70,7 @@ const CardComponent = observer((props) => {
                                 style={{ width: 300, margin: 4 }}
                                 title={<Link style={{ color: 'black', underline: 'none' }} to={`/clients/${client.clientName}`}>{client.clientName}</Link>}
                                 cover={<Link to={`/clients/${client.clientName}`}><img
-
+                                    style={{width:'100%'}}
                                     alt="example"
                                     src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                                 /></Link>}
