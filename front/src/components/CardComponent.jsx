@@ -25,6 +25,7 @@ const CardComponent = observer((props) => {
 
     const deleteClient = async (id) => {
         const clientID = id
+        console.log(clientID)
         await ClientStore.deleteClient(clientID)
         props.renderPage()
     }
@@ -37,7 +38,9 @@ const CardComponent = observer((props) => {
         setModalIsOpen(false)
     }
     const getAndupdateClient = (id) => {
-        let thisClient = ClientStore.listOfClients.filter(client => client.id === id)
+        console.log(id)
+        let thisClient = ClientStore.listOfClients.filter(client => client._id === id)
+        console.log(thisClient)
         setUpdateClient(thisClient)
     }
 
@@ -49,11 +52,14 @@ const CardComponent = observer((props) => {
     }
 
 
+    useEffect(() => {
+        Modal.setAppElement('body')
+    }, [])
 
 
 
+    if (!ClientStore.loading) {
 
-    if (clients.length > 0) {
 
         return (
             <>
@@ -70,13 +76,13 @@ const CardComponent = observer((props) => {
                                 style={{ width: 300, margin: 4 }}
                                 title={<Link style={{ color: 'black', underline: 'none' }} to={`/clients/${client.clientName}`}>{client.clientName}</Link>}
                                 cover={<Link to={`/clients/${client.clientName}`}><img
-                                    style={{width:'100%'}}
+                                    style={{ width: '100%' }}
                                     alt="example"
                                     src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                                 /></Link>}
                                 actions={[
-                                    <EditOutlined onClick={() => { { getAndupdateClient(client.id) }; setModalIsOpenToTrue() }} key="edit" />,
-                                    <DeleteOutlined name={client.clientName} value={client} onClick={() => { deleteClient(client.id) }} key="delete" />
+                                    <EditOutlined onClick={() => { { getAndupdateClient(client._id) }; setModalIsOpenToTrue() }} key="edit" />,
+                                    <DeleteOutlined name={client.clientName} value={client} onClick={() => { deleteClient(client._id) }} key="delete" />
                                 ]}
                             >
                                 <Meta
@@ -93,14 +99,12 @@ const CardComponent = observer((props) => {
                 )}
             </>
         )
-    } else {
-        return (
-            <div>
-                cant post yet
-            </div>
-        )
-    }
 
+    }else{
+        return( <div>
+            cant post yet
+        </div>)
+    }
 })
 
 export default CardComponent

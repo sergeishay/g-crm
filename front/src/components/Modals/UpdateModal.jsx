@@ -38,7 +38,7 @@ const UpdateModal = observer((props) => {
             clientName: UpdateName,
             clientLink: UpdateLink,
             urlPick: null,
-            id: props.updateClient[0].id || null
+            id: props.updateClient[0]._id || null
         }
         await ClientStore.updateClient(clientData)
         props.setModalIsOpenToFalse()

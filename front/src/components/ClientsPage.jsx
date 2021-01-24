@@ -32,12 +32,6 @@ export const ClientsPage = observer((props) => {
         ClientStore.getAllClients()
     }
 
-    useEffect(() => {
-        Modal.setAppElement('body')
-    }, [])
-
-
-
     console.log(ClientStore.listOfClients)
     return (
         <div className='clientsPageBody' >
