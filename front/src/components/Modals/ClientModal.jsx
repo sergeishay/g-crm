@@ -28,7 +28,7 @@ const ClientModal = observer((props) => {
         }
         await ClientStore.createClient(clientData)
         props.setModalIsOpenToFalse()
-        props.renderPage()
+        // props.renderPage()
         resetClientName();
         resetClientWebsite()
 

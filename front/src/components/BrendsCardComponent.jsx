@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import ClientStoreContext from '../Stores/Client/ClientStore';
 import BrendsStoreContext from '../Stores/Brend/BrendStore';
 import { Card, Avatar, Row, Skeleton, Switch } from 'antd';
 import 'antd/dist/antd.css';
@@ -13,19 +12,18 @@ const { Meta } = Card;
 
 const BrendsCardComponent = observer((props) => {
     const BrendsStore = useContext(BrendsStoreContext)
-    const  listOfBrends = BrendsStore.listOfBrendsforClient
-    const propsOfBrends = props.brends
-    console.log(propsOfBrends)
-    console.log(listOfBrends)
+    const clientBrends = BrendsStore.correntClient[0].brends
+    console.log(clientBrends)
+
     const [updateClient, setUpdateClient] = useState([])
     const [loading , setLoading] = useState(true)
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const deleteClient = async (id) => {
         // const clientID = id
         // await ClientStore.deleteClient(clientID)
         // props.renderPage()
     }
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const setModalIsOpenToTrue = () => {
         setModalIsOpen(true)
@@ -41,14 +39,17 @@ const BrendsCardComponent = observer((props) => {
     useEffect(() => {
         Modal.setAppElement('body')
     }, [])
-    if (listOfBrends.length > 0) {
+
+
+
+    if (clientBrends.length > 0) {
         return (
             <>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>
                     <UpdateModal renderPage={props.renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
-                {listOfBrends.map((brend, i) => {
+                {clientBrends && clientBrends.map((brend, i) => {
                     return (
                         <div key={i} className="cardComp">
                             <Card
@@ -96,3 +97,13 @@ const BrendsCardComponent = observer((props) => {
 export default BrendsCardComponent
 
 
+// const initialValues = {
+//     brendName : "",
+//     indestry: "",
+//     brendLink:"",
+//     dollarCo: "",
+//     pricing: "",
+//     owner: [],
+//     paymehod: "",
+//     posts:[]
+//   };

@@ -107,11 +107,27 @@ clientRouter.get('/:id', (req, res) => {
     });
 });
 
-
+////save brend to client id
 clientRouter.post('/:id',async (req, res) => {
   const {id} = req.params
-  console.log(id)
-  const brend = new Brends(req.body)
+  const {brendData} = req.body
+  console.log(brendData)
+  console.log('=================================================')
+  const brend = new Brends({
+    clientBrendId : id ,
+    brendName : brendData.brendName,
+    indestry: brendData.indestry,
+    brendLink:brendData.brendLink,
+    dollarCo: brendData.dollarCo,
+    pricing: brendData.pricing,
+    owner: brendData.owner,
+    paymehod: brendData.paymehod,
+    posts:[]
+    
+    
+    })
+  console.log(brend)
+  console.log('================================================')
   const findClient = await Clients.findOne({_id:id}).exec()
   console.log(findClient)
   console.log(typeof findClient)
@@ -122,6 +138,11 @@ clientRouter.post('/:id',async (req, res) => {
       findClient.brends.push(brend)
       findClient.save()
 });
+
+
+
+
+
 
 clientRouter.put('/:id',async (req, res) => {
   const { id } = req.params
@@ -136,7 +157,6 @@ clientRouter.put('/:id',async (req, res) => {
     }
   })
 })
-
 
 
 
