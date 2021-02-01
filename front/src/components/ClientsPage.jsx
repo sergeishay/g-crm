@@ -32,17 +32,10 @@ export const ClientsPage = observer((props) => {
         ClientStore.getAllClients()
     }
 
-    useEffect(() => {
-        Modal.setAppElement('body')
-    }, [ClientStore.listOfClients])
-
-    const matches = props.match
-    console.log(matches)
-
-
     console.log(ClientStore.listOfClients)
     return (
         <div className='clientsPageBody' >
+
             <div className='addClientDiv'>
                 <Tooltip placement="topLeft" title='add new client'>
                     <Button
@@ -56,7 +49,7 @@ export const ClientsPage = observer((props) => {
                     <button onClick={setModalIsOpenToFalse}>x</button>
                     <ClientsModal newClient={true} edit={false} renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
-            </div>
+            </div>f
 
 
 

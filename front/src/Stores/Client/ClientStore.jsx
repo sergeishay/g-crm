@@ -1,70 +1,62 @@
 import React, { Component } from 'react';
-import {observable ,action, computed, get } from 'mobx' ; 
-import {createContext } from 'react';
+import { observable, action, computed, get, runInAction } from 'mobx';
+import { createContext } from 'react';
 import axios from 'axios'
 import ClientData from './ClientData'
 import { act } from '@testing-library/react';
 
 
 
- class ClientStore {
+
+class ClientStore {
     @observable listOfClients = [];
 
-    constructor(){
+    constructor() {
+        this.loading = false
         this.init()
     }
     init = async () => {
-        await this.getAllClients();
+        await this.getAllClients()
     }
 
-    @action async getAllClients(){
-        const listData = [];
-        await axios.get(`http://localhost:8080/clients`)
-        .then((data) => {
-            // id , clientName , clientLink , brends , urlPick
-            // console.log(data.data.allClients)
-            this.listOfClients = data.data.allClients;
-            for(let c of data.data.allClients){
-                listData.push(
-                    new ClientData(
-                        c._id,
-                        c.clientName,
-                        c.clientLink,
-                        c.brends,
-                        c.urlPick
-                    )
-                )
-            }
+    @action async getAllClients() {
+        this.loading = true
+        const clientData = await axios.get(`http://localhost:8080/clients`)
+        runInAction(() => {
+            this.listOfClients = clientData.data.allClients
+            this.loading = false
         })
-        .catch((error) => {
-            console.log(error)
-        })
-        this.listOfClients = listData
-        console.log(listData)
+
     }
-    @action async getClientById (id){
+    @action async getClientById(id) {
         const data = await axios.get(`http://localhost:8080/clients/${id}`)
         return data
     }
 
-    @action async createClient(newClient){
-        await axios.post(`http://localhost:8080/clients` , newClient)
+    @action async createClient(newClient) {
+        const theClient = await axios.post(`http://localhost:8080/clients`, newClient)
+        console.log(theClient.data.doc)
+        this.listOfClients.push(theClient.data.doc)
 
     }
-    @action async deleteClient(id){
-        await axios.delete(`http://localhost:8080/clients/${id}`, {id : id})
-        const deleteClient = [...this.listOfClients]
-        deleteClient.filter(clientId => clientId.id===id)
-        console.log(deleteClient)
+    @action async deleteClient(id) {
+        console.log(id)
+        const deleted = await axios.delete(`http://localhost:8080/clients/${id}`, { id: id })
+        console.log(deleted)
+        const newListOfClients = this.listOfClients.filter(clientId => clientId._id !== id)
+        this.listOfClients = newListOfClients
     }
 
 
 
-    @action async updateClient(data){
-        console.log(data)
-        await axios.put(`http://localhost:8080/clients/${data.id}` , data)
+    @action async updateClient(data) {
+        const UpdatedClient = await axios.put(`http://localhost:8080/clients/${data.id}`, data)
+        console.log(UpdatedClient)
+        const index = this.listOfClients.findIndex(index => index._id === data.id)
+        this.listOfClients[index] = data
+        console.log(index)
     }
-    
+
 }
 const ClientStoreContext = createContext(new ClientStore())
 export default ClientStoreContext;

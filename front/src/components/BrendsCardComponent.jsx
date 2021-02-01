@@ -1,26 +1,29 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import ClientStoreContext from '../Stores/Client/ClientStore';
-import { Card, Avatar, Row } from 'antd';
+import BrendsStoreContext from '../Stores/Brend/BrendStore';
+import { Card, Avatar, Row, Skeleton, Switch } from 'antd';
 import 'antd/dist/antd.css';
-import { EditOutlined, DeleteOutlined, SettingOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, SettingOutlined, EllipsisOutlined } from '@ant-design/icons';
 import UpdateModal from './Modals/UpdateModal';
 import Modal from 'react-modal';
 const { Meta } = Card;
 
 
 
-const CardComponent = observer((props) => {
-    const ClientStore = useContext(ClientStoreContext)
-    const clients = props.clients.listOfClients
-
+const BrendsCardComponent = observer((props) => {
+    const BrendsStore = useContext(BrendsStoreContext)
+    const  listOfBrends = BrendsStore.listOfBrendsforClient
+    const propsOfBrends = props.brends
+    console.log(propsOfBrends)
+    console.log(listOfBrends)
     const [updateClient, setUpdateClient] = useState([])
-
+    const [loading , setLoading] = useState(true)
 
     const deleteClient = async (id) => {
-        const clientID = id
-        await ClientStore.deleteClient(clientID)
-        props.renderPage()
+        // const clientID = id
+        // await ClientStore.deleteClient(clientID)
+        // props.renderPage()
     }
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -32,31 +35,32 @@ const CardComponent = observer((props) => {
         setModalIsOpen(false)
     }
     const getAndupdateClient = (id) => {
-        let thisClient = ClientStore.listOfClients.filter(client => client.id === id)
-        setUpdateClient(thisClient)
+        // let thisClient = ClientStore.listOfClients.filter(client => client.id === id)
+        // setUpdateClient(thisClient)
     }
-
-    if (clients.length > 0) {
-        {/*  */ }
+    useEffect(() => {
+        Modal.setAppElement('body')
+    }, [])
+    if (listOfBrends.length > 0) {
         return (
             <>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>
-                    <UpdateModal renderPage={props.renderPage} newClient={false} edit={true} updateClient={updateClient} setModalIsOpenToFalse={setModalIsOpenToFalse} />
+                    <UpdateModal renderPage={props.renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
-                {clients.map((client, i) => {
+                {listOfBrends.map((brend, i) => {
                     return (
                         <div key={i} className="cardComp">
                             <Card
                                 style={{ width: 300, margin: 4 }}
-                                title={client.clientName}
+                                title={brend.brendName}
                                 cover={<img
                                     alt="example"
                                     src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                                 />}
                                 actions={[
-                                    <EditOutlined onClick={() => { { getAndupdateClient(client.id) }; setModalIsOpenToTrue() }} key="edit" />,
-                                    <DeleteOutlined name={client.clientName} value={client} onClick={() => { deleteClient(client.id) }} key="delete" />
+                                    <EditOutlined onClick={() => { { getAndupdateClient(brend.id) }; setModalIsOpenToTrue() }} key="edit" />,
+                                    <DeleteOutlined onClick={() => { deleteClient(brend.id) }} key="delete" />
                                 ]}
                             >
                                 <Meta
@@ -74,13 +78,21 @@ const CardComponent = observer((props) => {
     } else {
         return (
             <div>
-                cant post yet
+                <Card style={{ width: 300, marginTop: 16 }} loading={loading}>
+                    <Meta
+                        avatar={
+                            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                        }
+                        title="Card title"
+                        description="This is the description"
+                    />
+                </Card>
             </div>
         )
     }
 
 })
 
-export default CardComponent
+export default BrendsCardComponent
 
 
