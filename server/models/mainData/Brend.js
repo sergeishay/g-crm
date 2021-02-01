@@ -16,9 +16,9 @@ var BrendSchema = new Schema({
     pricing:{
         type:Number,
     },
-    owner :[
-        { type: Schema.Types.ObjectId, ref: 'employe' }
-    ],
+    owner :{
+        type:String,
+    },
     paymehod:{
         type:String,
         enum : ['RETAINER' , 'SOME' , 'OTHER'],

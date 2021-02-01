@@ -10,6 +10,7 @@ import BrendsCardComponent from './BrendsCardComponent'
 import Modal from 'react-modal'
 import { observer } from 'mobx-react-lite'
 import BrendsStoreContext from '../Stores/Brend/BrendStore';
+import BrendModal from './Modals/BrendModal'
 
 
 export const BrendPage = observer((props) => {
@@ -53,9 +54,12 @@ export const BrendPage = observer((props) => {
                 </Tooltip>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>
-                    <ClientsModal newClient={true} edit={false} renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
+                    <BrendModal newClient={true} edit={false} renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
             </div>
+
+
+
             <div className="clientsPageCard">
                 <Row gutter={[16, 16]}>
                     <React.Fragment>

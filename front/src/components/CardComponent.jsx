@@ -17,32 +17,40 @@ const CardComponent = observer((props) => {
     const ClientStore = useContext(ClientStoreContext)
     const BrendsStore = useContext(BrendStoreContext)
     const listOfClients = ClientStore.listOfClients
-    const clients = props.clients.listOfClients
     const [updateClient, setUpdateClient] = useState([])
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     // console.log(listOfClients)
 
+
+
+    ///////////delete client
     const deleteClient = async (id) => {
         const clientID = id
         console.log(clientID)
         await ClientStore.deleteClient(clientID)
         props.renderPage()
     }
-
+//////////////open modal
     const setModalIsOpenToTrue = () => {
         setModalIsOpen(true)
     }
-
+//////////////close modal
     const setModalIsOpenToFalse = () => {
         setModalIsOpen(false)
     }
+
+
+/////////////update client   
     const getAndupdateClient = (id) => {
         console.log(id)
         let thisClient = ClientStore.listOfClients.filter(client => client._id === id)
         console.log(thisClient)
         setUpdateClient(thisClient)
     }
+
+
+
 
     const getBrendsByClientId = (clickClient) => {
         console.log(clickClient)
