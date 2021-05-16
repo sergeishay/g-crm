@@ -15,16 +15,21 @@ const BrendsCardComponent = observer((props) => {
     const clientBrends = BrendsStore.correntClient[0].brends
     console.log(clientBrends)
 
-    const [updateClient, setUpdateClient] = useState([])
+    const [updateClient, setUpdateClient] = useState(clientBrends)
     const [loading , setLoading] = useState(true)
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    const deleteClient = async (id) => {
+    const up = []
+    const deleteClient = async (id ,brendId) => {
         // const clientID = id
-        // await ClientStore.deleteClient(clientID)
-        // props.renderPage()
+        await BrendsStore.deleteBrendFromClient(id , brendId)
+         this.up = [...clientBrends]
+        setUpdateClient(up)
+    }
+    const getCorrentBrends =()=> {
+       return BrendsStore.correntClient[0].brends
     }
 
+    console.log(up)
     const setModalIsOpenToTrue = () => {
         setModalIsOpen(true)
     }
@@ -38,7 +43,7 @@ const BrendsCardComponent = observer((props) => {
     }
     useEffect(() => {
         Modal.setAppElement('body')
-    }, [])
+    }, [clientBrends,updateClient])
 
 
 
@@ -61,7 +66,7 @@ const BrendsCardComponent = observer((props) => {
                                 />}
                                 actions={[
                                     <EditOutlined onClick={() => { { getAndupdateClient(brend.id) }; setModalIsOpenToTrue() }} key="edit" />,
-                                    <DeleteOutlined onClick={() => { deleteClient(brend.id) }} key="delete" />
+                                    <DeleteOutlined onClick={() => { deleteClient(brend.clientBrendId,brend._id ) }} key="delete" />
                                 ]}
                             >
                                 <Meta

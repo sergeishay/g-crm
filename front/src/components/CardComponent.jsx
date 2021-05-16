@@ -13,6 +13,7 @@ const { Meta } = Card;
 
 
 
+
 const CardComponent = observer((props) => {
     const ClientStore = useContext(ClientStoreContext)
     const BrendsStore = useContext(BrendStoreContext)

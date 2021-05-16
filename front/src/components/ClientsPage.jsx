@@ -10,7 +10,7 @@ import Modal from 'react-modal'
 import { observer } from 'mobx-react-lite'
 import ClientStoreContext from '../Stores/Client/ClientStore';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
+import FadeIn from "react-fade-in";
 
 
 export const ClientsPage = observer((props) => {
@@ -49,22 +49,21 @@ export const ClientsPage = observer((props) => {
                     <button onClick={setModalIsOpenToFalse}>x</button>
                     <ClientsModal newClient={true} edit={false} renderPage={renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
-            </div>f
-
-
-
-
-            <div className="clientsPageCard">
-                <Row gutter={[16, 16]}>
-                    <React.Fragment>
-                        <CardComponent
-                            match={props.match}
-                            clients={ClientStore}
-                            renderPage={renderPage}
-                        />
-                    </React.Fragment>
-                </Row>
             </div>
+
+
+
+                <div className="clientsPageCard">
+                    <Row gutter={[16, 16]}>
+                        <React.Fragment>
+                            <CardComponent
+                                match={props.match}
+                                clients={ClientStore}
+                                renderPage={renderPage}
+                            />
+                        </React.Fragment>
+                    </Row>
+                </div>
         </div>
     )
 })

@@ -33,12 +33,10 @@ export const BrendPage = observer((props) => {
     }
 
     const renderPage = () => {
-        // BrendStore.getAllBrendsByClientID()
+        BrendStore.getAllBrendsByClientID()
     }
 
-    // useEffect(() => {
-    //     Modal.setAppElement('body')
-    // },[])
+
 
 
     return (

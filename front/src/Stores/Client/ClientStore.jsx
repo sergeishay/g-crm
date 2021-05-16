@@ -40,6 +40,7 @@ class ClientStore {
         this.listOfClients.unshift(theClient.data.doc)
 
     }
+
     @action async deleteClient(id) {
         console.log(id)
         const deleted = await axios.delete(`http://localhost:8080/clients/${id}`, { id: id })
