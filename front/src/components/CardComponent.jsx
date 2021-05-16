@@ -21,9 +21,7 @@ const CardComponent = observer((props) => {
     const [updateClient, setUpdateClient] = useState([])
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    // console.log(listOfClients)
-
-
+ 
 
     ///////////delete client
     const deleteClient = async (id) => {

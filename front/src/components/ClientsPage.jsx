@@ -14,12 +14,12 @@ import FadeIn from "react-fade-in";
 
 
 export const ClientsPage = observer((props) => {
-
+//observe changes and setStates
     const ClientStore = useContext(ClientStoreContext)
     const [clients, setClients] = useState([])
     const [number, setNumber] = useState(0)
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
+//open and close modal
     const setModalIsOpenToTrue = () => {
         setModalIsOpen(true)
     }
@@ -27,7 +27,8 @@ export const ClientsPage = observer((props) => {
     const setModalIsOpenToFalse = () => {
         setModalIsOpen(false)
     }
-
+    console.log("here")
+//render the clients from the database
     const renderPage = () => {
         ClientStore.getAllClients()
     }

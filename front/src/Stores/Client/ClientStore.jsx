@@ -38,7 +38,7 @@ class ClientStore {
         const theClient = await axios.post(`http://localhost:8080/clients`, newClient)
         console.log(theClient.data.doc)
         this.listOfClients.unshift(theClient.data.doc)
-
+        console.log(this.listOfClients)
     }
 
     @action async deleteClient(id) {
