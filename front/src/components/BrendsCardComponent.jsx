@@ -19,11 +19,10 @@ const BrendsCardComponent = observer((props) => {
     const [loading , setLoading] = useState(true)
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const up = []
-    const deleteClient = async (id ,brendId) => {
+    const deleteBrend = async (id ,brendId) => {
         // const clientID = id
-        await BrendsStore.deleteBrendFromClient(id , brendId)
-         this.up = [...clientBrends]
-        setUpdateClient(up)
+       const deleteBrendFromClient = await BrendsStore.deleteBrendFromClient(id , brendId)
+       setUpdateClient(deleteBrendFromClient)
     }
     const getCorrentBrends =()=> {
        return BrendsStore.correntClient[0].brends
@@ -66,7 +65,7 @@ const BrendsCardComponent = observer((props) => {
                                 />}
                                 actions={[
                                     <EditOutlined onClick={() => { { getAndupdateClient(brend.id) }; setModalIsOpenToTrue() }} key="edit" />,
-                                    <DeleteOutlined onClick={() => { deleteClient(brend.clientBrendId,brend._id ) }} key="delete" />
+                                    <DeleteOutlined onClick={() => { deleteBrend(brend.clientBrendId,brend._id ) }} key="delete" />
                                 ]}
                             >
                                 <Meta

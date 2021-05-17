@@ -10,14 +10,16 @@ import BrendsCardComponent from './BrendsCardComponent'
 import Modal from 'react-modal'
 import { observer } from 'mobx-react-lite'
 import BrendsStoreContext from '../Stores/Brend/BrendStore';
+import ClientStoreContext from '../Stores/Client/ClientStore';
 import BrendModal from './Modals/BrendModal'
-
+import {useHistory} from "react-router-dom";
 
 export const BrendPage = observer((props) => {
 
     const BrendStore = useContext(BrendsStoreContext)
+    const ClientStore = useContext(ClientStoreContext)
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
+    const history = useHistory();
 
     const clientsBrendsById = BrendStore.correntClient
     console.log(clientsBrendsById)
@@ -69,6 +71,9 @@ export const BrendPage = observer((props) => {
                     </React.Fragment>
                 </Row>
             </div>
+            <div className="backToHomePage">
+                          <button className="back" onClick={() => history.goBack()}>Back to All Clients</button>
+                </div>
         </div>
     )
 })

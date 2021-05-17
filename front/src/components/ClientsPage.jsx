@@ -1,6 +1,6 @@
 
 import '../styles/CllientsPage.css'
-import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
+import React, { Link ,useState, useEffect, useContext, useLayoutEffect } from 'react'
 import axios from '../../node_modules/axios';
 import { Tooltip, Button, Row } from 'antd';
 import ClientsModal from './Modals/ClientModal'
@@ -11,6 +11,7 @@ import { observer } from 'mobx-react-lite'
 import ClientStoreContext from '../Stores/Client/ClientStore';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import FadeIn from "react-fade-in";
+import {useHistory} from "react-router-dom";
 
 
 export const ClientsPage = observer((props) => {
@@ -19,6 +20,8 @@ export const ClientsPage = observer((props) => {
     const [clients, setClients] = useState([])
     const [number, setNumber] = useState(0)
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const history = useHistory();
+
 //open and close modal
     const setModalIsOpenToTrue = () => {
         setModalIsOpen(true)
@@ -64,6 +67,12 @@ export const ClientsPage = observer((props) => {
                             />
                         </React.Fragment>
                     </Row>
+                </div>
+
+                <div className="backToHomePage">
+               
+                    <button className="back" onClick={() => history.goBack()}>Back Home</button>
+              
                 </div>
         </div>
     )

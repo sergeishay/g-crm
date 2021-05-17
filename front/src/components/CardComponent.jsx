@@ -65,7 +65,7 @@ const CardComponent = observer((props) => {
 
 
 
-    if (!ClientStore.loading) {
+    if (listOfClients.length> 0) {
 
 
         return (

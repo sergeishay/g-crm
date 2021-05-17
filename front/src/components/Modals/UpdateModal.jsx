@@ -42,7 +42,7 @@ const UpdateModal = observer((props) => {
         }
         await ClientStore.updateClient(clientData)
         props.setModalIsOpenToFalse()
-        props.renderPage()
+
 
     }
 

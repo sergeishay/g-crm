@@ -12,7 +12,7 @@ class ClientStore {
     @observable listOfClients = [];
 
     constructor() {
-        this.loading = false
+        // this.loading = false
         this.init()
     }
     init = async () => {

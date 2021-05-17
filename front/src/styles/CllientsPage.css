@@ -23,3 +23,31 @@
     align-content: center;
     margin-top:2rem;
 }
+
+.backToHomePage{
+    display: flex;
+    margin-top:30px;
+    margin-bottom:30px;
+    justify-content: center;
+}
+.back{
+    padding-top:12px;
+    padding-bottom: 12px;
+    background-color:orange;
+    color:white;
+    border-radius:15px 3px 15px 3px;
+    border:none;
+    transition-duration: 0.5s;
+
+}
+.back:hover{
+    padding-top:12px;
+    padding-bottom: 12px;
+    background-color:white;
+    color:orange;
+    border-radius:3px 15px 3px 15px;
+    transform:scale(1.2);
+    border:solid 1px orange;
+    transition-duration: 0.5s;
+
+}
