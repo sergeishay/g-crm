@@ -20,6 +20,7 @@ function Layouts() {
                     <Route path="/about" exact render={() => <AboutPage />} />
                     <Route path="/clients" exact render={({ match }) => <ClientsPage match={match} />} />
                     <Route path="/clients/:client" exact render={({ match }) => <BrendPage match={match} />} />
+                    <Route path="/clients/:client/:brend" exact render={({ match }) => <BrendPage match={match} />} />
                 </Switch>
             </div>
         </Router>

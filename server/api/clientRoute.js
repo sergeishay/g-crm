@@ -136,6 +136,8 @@ clientRouter.post("/:id", async (req, res) => {
   findClient.save();
 });
 
+
+///////delete brend from a client by Id
 clientRouter.delete("/:id/:brendId",  (req, res) => {
   const { id } = req.params;
   const  _id  = req.params.brendId;
@@ -149,7 +151,7 @@ clientRouter.delete("/:id/:brendId",  (req, res) => {
       if (err) {
         console.log(err + "*************************");
       } else {
-        Brends.findByIdAndDelete({ _id: _id } ,function (err, response) {
+        Brends.findByIdAndDelete({ _id: _id }  ,function (err, response) {
           if(err) {
             return res.json({ success: false, err });
           }else{
@@ -160,13 +162,37 @@ clientRouter.delete("/:id/:brendId",  (req, res) => {
       }
     }
   );
-  console.log(s)
-  // const thisClient = await Clients.findById(id,'brends').populate('brends').exec();
-  // const deleteBrendFromClient = thisClient.brends
-  // console.log('+++++++++++++++++++++++++++++++++++')
-  // console.log(thisClient)
-  // console.log(deleteBrendFromClient)
+    console.log(s)
 });
+//////update brend by cilent id
+clientRouter.put("/:id/:brendId", (req,res)=>{
+  const { id } = req.params;
+  const  _id  = req.params.brendId;
+  console.log(id);
+  console.log(_id);
+  const s =  Clients.findByIdAndUpdate(
+    { _id: id },
+    { $pull: { brends: { _id: _id } } },
+    { safe: true, multi:true },
+    function (err, obj) {
+      if (err) {
+        console.log(err + "*************************");
+      } else {
+        Brends.findByIdAndUpdate({ _id: _id }, req.body , { new: true } ,function (err, response) {
+          if(err) {
+            return res.json({ success: false, err });
+          }else{
+            return res.status(200).send({ success: true, response });
+          }
+        })
+
+      }
+    }
+  );
+})
+
+
+
 
 module.exports = clientRouter;
 

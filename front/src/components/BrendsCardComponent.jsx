@@ -4,7 +4,7 @@ import BrendsStoreContext from '../Stores/Brend/BrendStore';
 import { Card, Avatar, Row, Skeleton, Switch } from 'antd';
 import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined, SettingOutlined, EllipsisOutlined } from '@ant-design/icons';
-import UpdateModal from './Modals/UpdateModal';
+import BrendUpdateModal from './Modals/BrendUpdateModal';
 import Modal from 'react-modal';
 const { Meta } = Card;
 
@@ -15,20 +15,29 @@ const BrendsCardComponent = observer((props) => {
     const clientBrends = BrendsStore.correntClient[0].brends
     console.log(clientBrends)
 
-    const [updateClient, setUpdateClient] = useState(clientBrends)
+    const [updateClientBrend, setUpdateClientBrend] = useState(clientBrends)
     const [loading , setLoading] = useState(true)
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const up = []
+    // const [ModalIsOpenToFalse, setModalIsOpenToFalse] = useState(false);
+  //////delete brend by client id
     const deleteBrend = async (id ,brendId) => {
         // const clientID = id
        const deleteBrendFromClient = await BrendsStore.deleteBrendFromClient(id , brendId)
-       setUpdateClient(deleteBrendFromClient)
-    }
-    const getCorrentBrends =()=> {
-       return BrendsStore.correntClient[0].brends
+       
+       setUpdateClientBrend(deleteBrendFromClient)
     }
 
-    console.log(up)
+  //////update brend by client id
+
+    const getCorrentBrends = (clickBrend) => {
+        console.log(clickBrend)
+        let thisClientBrend = clientBrends.filter(brendid => brendid._id === clickBrend)
+        console.log(thisClientBrend)
+        BrendsStore.correntBrend = [thisClientBrend]
+        setUpdateClientBrend(thisClientBrend)
+    }
+
+
     const setModalIsOpenToTrue = () => {
         setModalIsOpen(true)
     }
@@ -36,13 +45,13 @@ const BrendsCardComponent = observer((props) => {
     const setModalIsOpenToFalse = () => {
         setModalIsOpen(false)
     }
-    const getAndupdateClient = (id) => {
-        // let thisClient = ClientStore.listOfClients.filter(client => client.id === id)
-        // setUpdateClient(thisClient)
+    const getAndupdateBrendByClientId =async (id,brendId) => {
+          const updateBrend = BrendsStore.updateBrandByClientId(id , brendId);
+          console.log(updateBrend)
     }
     useEffect(() => {
         Modal.setAppElement('body')
-    }, [clientBrends,updateClient])
+    }, [clientBrends])
 
 
 
@@ -51,7 +60,7 @@ const BrendsCardComponent = observer((props) => {
             <>
                 <Modal isOpen={modalIsOpen} >
                     <button onClick={setModalIsOpenToFalse}>x</button>
-                    <UpdateModal renderPage={props.renderPage} setModalIsOpenToFalse={setModalIsOpenToFalse} />
+                    <BrendUpdateModal renderPage={props.renderPage} updateClientBrend={updateClientBrend} setModalIsOpenToFalse={setModalIsOpenToFalse} />
                 </Modal>
                 {clientBrends && clientBrends.map((brend, i) => {
                     return (
@@ -64,7 +73,7 @@ const BrendsCardComponent = observer((props) => {
                                     src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                                 />}
                                 actions={[
-                                    <EditOutlined onClick={() => { { getAndupdateClient(brend.id) }; setModalIsOpenToTrue() }} key="edit" />,
+                                    <EditOutlined onClick={() => { { getCorrentBrends(brend._id) }; setModalIsOpenToTrue() }} key="edit" />,
                                     <DeleteOutlined onClick={() => { deleteBrend(brend.clientBrendId,brend._id ) }} key="delete" />
                                 ]}
                             >
