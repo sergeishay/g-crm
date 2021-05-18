@@ -13,6 +13,7 @@ const { Meta } = Card;
 
 
 
+
 const CardComponent = observer((props) => {
     const ClientStore = useContext(ClientStoreContext)
     const BrendsStore = useContext(BrendStoreContext)
@@ -20,9 +21,7 @@ const CardComponent = observer((props) => {
     const [updateClient, setUpdateClient] = useState([])
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    // console.log(listOfClients)
-
-
+ 
 
     ///////////delete client
     const deleteClient = async (id) => {
@@ -66,7 +65,7 @@ const CardComponent = observer((props) => {
 
 
 
-    if (!ClientStore.loading) {
+    if (listOfClients.length> 0) {
 
 
         return (

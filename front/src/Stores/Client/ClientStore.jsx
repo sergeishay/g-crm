@@ -12,7 +12,7 @@ class ClientStore {
     @observable listOfClients = [];
 
     constructor() {
-        this.loading = false
+        // this.loading = false
         this.init()
     }
     init = async () => {
@@ -38,8 +38,9 @@ class ClientStore {
         const theClient = await axios.post(`http://localhost:8080/clients`, newClient)
         console.log(theClient.data.doc)
         this.listOfClients.unshift(theClient.data.doc)
-
+        console.log(this.listOfClients)
     }
+
     @action async deleteClient(id) {
         console.log(id)
         const deleted = await axios.delete(`http://localhost:8080/clients/${id}`, { id: id })

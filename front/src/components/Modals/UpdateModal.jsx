@@ -42,7 +42,7 @@ const UpdateModal = observer((props) => {
         }
         await ClientStore.updateClient(clientData)
         props.setModalIsOpenToFalse()
-        props.renderPage()
+
 
     }
 
@@ -70,7 +70,7 @@ const UpdateModal = observer((props) => {
                 },
             }
             : null;
-    const handleKeypress = e => {
+    const handleKeypress = (e) => {
         //it triggers by pressing the enter key
         if (e.keyCode === 13) {
             handleSubmitUpdate();

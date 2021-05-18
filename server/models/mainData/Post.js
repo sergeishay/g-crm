@@ -20,18 +20,18 @@ var userSchema = new mongoose.Schema({
     postLink: {
         type: String,
     },
-    platform: [
-        { type: Schema.Types.ObjectId, ref: 'Platform' }
-    ],
+    platform: {
+        type: String,
+    },
     targeting: {
         type: String
     },
     postPrice: {
         type: Number
     },
-    goal: [
-        { type: Schema.Types.ObjectId, ref: 'Goal' }
-    ],
+    goal: {
+        type: String,
+    },
     fee:{
         type:Number
     },
@@ -46,10 +46,13 @@ var userSchema = new mongoose.Schema({
     status:{
         type:String
     },
-    employe:[
-        { type: Schema.Types.ObjectId, ref: 'Employe' }
-    ]
-
+    employe:{
+        type: String,
+    },
+    NameGenerator:{
+        type:String,
+    }
+    
 
 });
 
