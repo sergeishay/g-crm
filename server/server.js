@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
 
 app.use('/clients/', clientRoute)
 app.use('/clients/', brendtRoute)
-app.use('/posts/', postRoute)
+app.use('/clients/', postRoute)
 
 
 

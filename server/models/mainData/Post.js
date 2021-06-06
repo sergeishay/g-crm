@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'); // Erase if already required
 
-// Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema({
+
+var postSchema = new mongoose.Schema({
     campainName: {
         type: String,
     },
@@ -57,4 +57,4 @@ var userSchema = new mongoose.Schema({
 });
 
 //Export the model
-module.exports = mongoose.model('posts', userSchema);
+module.exports = mongoose.model('posts', postSchema);
