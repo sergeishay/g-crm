@@ -208,32 +208,45 @@ clientRouter.put("/:id/:brendId", (req, res) => {
 ////////////////////POST SECTION ////////////////////////////
 
 /////get posts for a brands by id
-clientRouter.get("/:id/:brendId",async (req, res) => {
+clientRouter.get("/:id/:brendId", async (req, res) => {
   const { id } = req.params;
   const _id = req.params.brendId;
   console.log(_id);
 
   const theClient = await Clients.findOne({ _id: id })
-    .populate({
-      path:"brends",
-      match:{_id : _id}
-    })
-  const theBrend = theClient.brends[0].posts
+  .populate({
+    path: "brends",
+    match: { _id: _id },
+  });
+
+  const theBrend = theClient.brends[0].posts;
   console.log(theBrend);
-  if( theClient.brends[0]._id === _id){
+  if (theClient.brends[0]._id === _id) {
     return res.status(400).send("error");
   } else {
-        res
-          .status(200).json({success:true , theBrend} )
- 
-      }
+    res.status(200).json({ success: true, theBrend });
+  }
 });
 
-
-
-
-
 ////save post to brend -> client id
+const updatePostTry = {
+  clientBrendId: "60bd034d0e45af48116250b9",
+  campainName: "update test 454545454",
+  postName: "update test 5454545454",
+  startTime: "10:35",
+  endTime: "11:35",
+  about: "lorem ipsum nothing intersting here",
+  postLink: "www.google2.com",
+  platform: "webse",
+  postPrice: "434323235",
+  goal: "to win",
+  fee: "1",
+  budgetNato: "2",
+  budgetType: "DAILY",
+  status: "not working",
+  employe: "sergei shaymardanov",
+  NameGenerator: "long string long string long string long string",
+};
 
 clientRouter.post("/:id/:brendId", async (req, res) => {
   const { id } = req.params;
@@ -241,32 +254,130 @@ clientRouter.post("/:id/:brendId", async (req, res) => {
   const { postData } = req.body;
   console.log(postData);
   console.log("=================================================");
-  const brend = new Brends({
-    clientBrendId: id,
-    brendName: brendData.brendName,
-    indestry: brendData.indestry,
-    brendLink: brendData.brendLink,
-    dollarCo: brendData.dollarCo,
-    pricing: brendData.pricing,
-    owner: brendData.owner,
-    paymehod: brendData.paymehod,
-    posts: [],
+  const post = new Post({
+  clientBrendId: brendId,
+  campainName: "post test",
+  postName: "post test",
+  startTime: "17:35",
+  endTime: "18:35",
+  about: "lorem ipsum nothing intersting here",
+  postLink: "www.google2.com",
+  platform: "webse",
+  postPrice: "434323235",
+  goal: "to win",
+  fee: "1",
+  budgetNato: "2",
+  budgetType: "DAILY",
+  status: "not working",
+  employe: "sergei shaymardanov",
+  NameGenerator: "long string long string long string long string",
   });
-  console.log(brend);
+  console.log(post);
   console.log("================================================");
-  const findClient = await Clients.findOne({ _id: id }).exec();
-  brend.save((err, docs) => {
-    if (err) return res.json({ success: false, err });
-    return res.status(200).send({ success: true, docs });
+  const theClient = await Clients.findOne({ _id: id }).populate({
+    path: "brends",
+    match: { _id: brendId },
   });
-  findClient.brends.push(brend);
-  findClient.save();
+  const newPostToBrend = theClient.brends[0];
+  console.log(newPostToBrend)
+  post.save((err, docs) => {
+    if (err) {
+      return res.json({ success: false, err });
+    } else {
+      console.log(typeof docs)
+      newPostToBrend.posts.push(docs);
+      newPostToBrend.save();
+      return res.status(200).send({ success: true, docs });
+    }
+  });
 });
 
+////update post by brend id by client id
+/////replace the updatePostTry to req.body on front testing
 
 
+clientRouter.put("/:id/:brendId/:postId", (req, res) => {
+  const { id } = req.params;
+  const { brendId } = req.params;
+  const { postId } = req.params;
+  console.log(id);
+  console.log(brendId);
+  console.log(postId);
+  const s = Clients.findByIdAndUpdate(
+    { _id: id },
+    { $pull: { brends: { _id: brendId } } },
+    { safe: true, multi: true },
+    function (err, obj) {
+      if (err) {
+        console.log(err + "*************CLIENT ERROR************");
+      } else {
+        Brends.findByIdAndUpdate(
+          { _id: brendId },
+          { $pull: { posts: { _id: postId } } },
+          { safe: true, multi: true },
+          function (err, response) {
+            if (err) {
+              console.log(err + "*************BREND ERROR************");
+            } else {
+              Post.findByIdAndUpdate(
+                { _id: postId },
+                updatePostTry,
+                { new: true },
+                function (err, response) {
+                  if (err) {
+                    return res.json({ success: false, err });
+                  } else {
+                    return res.status(200).send({ success: true, response });
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
+});
 
+////delete post by brend id by client id
 
+clientRouter.delete("/:id/:brendId/:postId", (req, res) => {
+  const { id } = req.params;
+  const { brendId } = req.params;
+  const { postId } = req.params;
+  console.log(id);
+  console.log(brendId);
+  console.log(postId);
+  Clients.findByIdAndUpdate(
+    { _id: id },
+    { $pull: { brends: { _id: brendId } } },
+    { safe: true, multi: true },
+    function (err, obj) {
+      if (err) {
+        console.log(err + "*************CLIENT ERROR************");
+      } else {
+        Brends.findByIdAndUpdate(
+          { _id: brendId },
+          { $pull: { posts: { _id: postId } } },
+          { safe: true, multi: true },
+          function (err, response) {
+            if (err) {
+              console.log(err + "*************BREND ERROR************");
+            } else {
+              Post.findByIdAndDelete({ _id: postId }, function (err, response) {
+                if (err) {
+                  return res.json({ success: false, err });
+                } else {
+                  return res.status(200).send({ success: true, response });
+                }
+              });
+            }
+          }
+        );
+      }
+    }
+  );
+});
 
 module.exports = clientRouter;
 
@@ -281,3 +392,42 @@ module.exports = clientRouter;
 //       .json({ allBrendsForClientById: allBrendsForClientById });
 //   }
 // });
+
+/////test for update post
+
+// {
+//   clientBrendId: brendId,
+//   campainName: "update test",
+//   postName: "update test",
+//   startTime: "10:35",
+//   endTime: "11:35",
+//   about: "lorem ipsum nothing intersting here",
+//   postLink: "www.google2.com",
+//   platform: "webse",
+//   postPrice: "434323235",
+//   goal: "to win",
+//   fee: "1",
+//   budgetNato: "2",
+//   budgetType: "DAILY",
+//   status: "not working",
+//   employe: "sergei shaymardanov",
+//   NameGenerator: "long string long string long string long string",
+// }
+
+/////post req body
+// clientBrendId: id,
+// campainName: postData.campainName,
+// postName: postData.postName,
+// startTime: postData.startTime,
+// endTime: postData.endTime,
+// about: postData.about,
+// postLink: postData.postLink,
+// platform: postData.platform,
+// postPrice: postData.postPrice,
+// goal: postData.goal,
+// fee: postData.fee,
+// budgetNato: postData.budgetNato,
+// budgetType: postData.budgetType,
+// status: postData.status,
+// employe: postData.employe,
+// NameGenerator: postData.NameGenerator,

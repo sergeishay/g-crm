@@ -8,6 +8,8 @@ const clientsSchema = new Schema({
         { type: Schema.Types.ObjectId, ref: 'Brend' },
     ],
     urlPick:String,
+    posts:
+    { type: Schema.Types.ObjectId, ref: 'Post' },
 })
 
 const Clients = mongoose.model('Clients', clientsSchema)

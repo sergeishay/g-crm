@@ -2,6 +2,7 @@ const mongoose = require('mongoose'); // Erase if already required
 
 
 var postSchema = new mongoose.Schema({
+
     campainName: {
         type: String,
     },
@@ -9,10 +10,10 @@ var postSchema = new mongoose.Schema({
         type: String,
     },
     startTime: {
-        type: Date,
+        type: String,
     },
     endTime: {
-        type: Date,
+        type: String,
     },
     about: {
         type: String,
@@ -51,10 +52,12 @@ var postSchema = new mongoose.Schema({
     },
     NameGenerator:{
         type:String,
-    }
+    },
+
     
 
 });
 
 //Export the model
-module.exports = mongoose.model('posts', postSchema);
+module.exports = mongoose.model('Post', postSchema);
+

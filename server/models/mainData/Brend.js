@@ -25,10 +25,9 @@ var BrendSchema = new Schema({
         default : 'RETAINER'
 
     },
-
-    posts:[
-        { type: Schema.Types.ObjectId, ref: 'Post' },
-    ]
+    posts:
+      [  { type: Schema.Types.ObjectId, ref: 'Post' }],
+    
 });
 
 //Export the model
