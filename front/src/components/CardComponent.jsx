@@ -1,3 +1,4 @@
+import '../styles/CardComponent.css'
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import ClientStoreContext from '../Stores/Client/ClientStore';
@@ -80,7 +81,12 @@ const CardComponent = observer((props) => {
                         <div key={i} className="cardComp">
                             <Card
                                 onClick={(() => { getBrendsByClientId(client) })}
-                                style={{ width: 300, margin: 4 }}
+                                style={{
+                                     width: 300,
+                                      margin: 4,
+                                      backgroundColor:"rgb(255, 228, 203)",
+                                      
+                                     }}
                                 title={<Link style={{ color: 'black', underline: 'none' }} to={`/clients/${client.clientName}`}>{client.clientName}</Link>}
                                 cover={<Link to={`/clients/${client.clientName}`}><img
                                     style={{ width: '100%' }}
