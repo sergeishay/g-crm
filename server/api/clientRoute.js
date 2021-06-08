@@ -94,8 +94,9 @@ clientRouter.delete("/:id", async (req, res) => {
     }
   });
 });
-
+////////////////////////////////////////////////////////////////
 //////////////////////////BRANDS SECTION////////////////////////
+////////////////////////////////////////////////////////////////
 
 //// brends for clients by id
 
@@ -204,8 +205,9 @@ clientRouter.put("/:id/:brendId", (req, res) => {
     }
   );
 });
-
+/////////////////////////////////////////////////////////////
 ////////////////////POST SECTION ////////////////////////////
+/////////////////////////////////////////////////////////////
 
 /////get posts for a brands by id
 clientRouter.get("/:id/:brendId", async (req, res) => {
@@ -213,10 +215,10 @@ clientRouter.get("/:id/:brendId", async (req, res) => {
   const _id = req.params.brendId;
   console.log(_id);
 
-  const theClient = await Clients.findOne({ _id: id })
-  .populate({
+  const theClient = await Clients.findOne({ _id: id }).populate({
     path: "brends",
     match: { _id: _id },
+    populate:( { path: "posts" ,options: { sort: { _id: -1 } } }),
   });
 
   const theBrend = theClient.brends[0].posts;
@@ -229,24 +231,6 @@ clientRouter.get("/:id/:brendId", async (req, res) => {
 });
 
 ////save post to brend -> client id
-const updatePostTry = {
-  clientBrendId: "60bd034d0e45af48116250b9",
-  campainName: "update test 454545454",
-  postName: "update test 5454545454",
-  startTime: "10:35",
-  endTime: "11:35",
-  about: "lorem ipsum nothing intersting here",
-  postLink: "www.google2.com",
-  platform: "webse",
-  postPrice: "434323235",
-  goal: "to win",
-  fee: "1",
-  budgetNato: "2",
-  budgetType: "DAILY",
-  status: "not working",
-  employe: "sergei shaymardanov",
-  NameGenerator: "long string long string long string long string",
-};
 
 clientRouter.post("/:id/:brendId", async (req, res) => {
   const { id } = req.params;
@@ -255,36 +239,37 @@ clientRouter.post("/:id/:brendId", async (req, res) => {
   console.log(postData);
   console.log("=================================================");
   const post = new Post({
-  clientBrendId: brendId,
-  campainName: "post test",
-  postName: "post test",
-  startTime: "17:35",
-  endTime: "18:35",
-  about: "lorem ipsum nothing intersting here",
-  postLink: "www.google2.com",
-  platform: "webse",
-  postPrice: "434323235",
-  goal: "to win",
-  fee: "1",
-  budgetNato: "2",
-  budgetType: "DAILY",
-  status: "not working",
-  employe: "sergei shaymardanov",
-  NameGenerator: "long string long string long string long string",
+    clientBrendId: brendId,
+    campainName: postData.campainName,
+    postName: postData.postName,
+    startTime: postData.startTime,
+    endTime: postData.endTime,
+    about: postData.about,
+    postLink: postData.postLink,
+    platform: postData.platform,
+    postPrice: postData.postPrice,
+    goal: postData.goal,
+    fee: postData.fee,
+    budgetNato: postData.budgetNato,
+    budgetType: postData.budgetType,
+    status: postData.status,
+    employe: postData.employe,
+    NameGenerator: postData.NameGenerator,
   });
   console.log(post);
   console.log("================================================");
   const theClient = await Clients.findOne({ _id: id }).populate({
     path: "brends",
     match: { _id: brendId },
-  });
+    options:{sort:{ _id: -1 }}
+  })
   const newPostToBrend = theClient.brends[0];
-  console.log(newPostToBrend)
+  console.log(newPostToBrend);
   post.save((err, docs) => {
     if (err) {
       return res.json({ success: false, err });
     } else {
-      console.log(typeof docs)
+      console.log(typeof docs);
       newPostToBrend.posts.push(docs);
       newPostToBrend.save();
       return res.status(200).send({ success: true, docs });
@@ -294,7 +279,6 @@ clientRouter.post("/:id/:brendId", async (req, res) => {
 
 ////update post by brend id by client id
 /////replace the updatePostTry to req.body on front testing
-
 
 clientRouter.put("/:id/:brendId/:postId", (req, res) => {
   const { id } = req.params;
@@ -321,7 +305,7 @@ clientRouter.put("/:id/:brendId/:postId", (req, res) => {
             } else {
               Post.findByIdAndUpdate(
                 { _id: postId },
-                updatePostTry,
+                req.body,
                 { new: true },
                 function (err, response) {
                   if (err) {

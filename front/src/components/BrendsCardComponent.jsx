@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import BrendsStoreContext from '../Stores/Brend/BrendStore';
-import { Card, Avatar, Row, Skeleton, Switch } from 'antd';
+import PostStoreContext from '../Stores/PostStore';
+import { Card, Avatar, Row, Skeleton } from 'antd';
 import 'antd/dist/antd.css';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import { EditOutlined, DeleteOutlined, SettingOutlined, EllipsisOutlined } from '@ant-design/icons';
 import BrendUpdateModal from './Modals/BrendUpdateModal';
 import Modal from 'react-modal';
@@ -12,13 +14,16 @@ const { Meta } = Card;
 
 const BrendsCardComponent = observer((props) => {
     const BrendsStore = useContext(BrendsStoreContext)
+    const PostStore = useContext(PostStoreContext)
+    const theClient = BrendsStore.correntClient[0]
     const clientBrends = BrendsStore.correntClient[0].brends
     console.log(clientBrends)
+    console.log(theClient)
 
     const [updateClientBrend, setUpdateClientBrend] = useState(clientBrends)
     const [loading , setLoading] = useState(true)
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    // const [ModalIsOpenToFalse, setModalIsOpenToFalse] = useState(false);
+
   //////delete brend by client id
     const deleteBrend = async (id ,brendId) => {
         // const clientID = id
@@ -49,6 +54,11 @@ const BrendsCardComponent = observer((props) => {
           const updateBrend = BrendsStore.updateBrandByClientId(id , brendId);
           console.log(updateBrend)
     }
+    const getPostsByBrendId = (clickBrend) =>{
+          console.log(clickBrend)
+          PostStore.getAllPostForABrend(theClient._id,clickBrend._id)
+          PostStore.correntBrend = [clickBrend];
+    }
     useEffect(() => {
         Modal.setAppElement('body')
     }, [clientBrends])
@@ -66,12 +76,12 @@ const BrendsCardComponent = observer((props) => {
                     return (
                         <div key={i} className="cardComp">
                             <Card
-                                style={{ width: 300, margin: 4 }}
-                                title={brend.brendName}
-                                cover={<img
+                                onClick={(() => { getPostsByBrendId(brend) })}
+                                title={<Link style={{ color: 'black', underline: 'none' }} to={`/clients/${theClient.clientName}/${brend.brendName}`}>{brend.brendName}</Link>}                            
+                                cover={<Link to={`/clients/${theClient.clientName}/${brend.brendName}`}><img
                                     alt="example"
                                     src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                                />}
+                                /></Link>}
                                 actions={[
                                     <EditOutlined onClick={() => { { getCorrentBrends(brend._id) }; setModalIsOpenToTrue() }} key="edit" />,
                                     <DeleteOutlined onClick={() => { deleteBrend(brend.clientBrendId,brend._id ) }} key="delete" />

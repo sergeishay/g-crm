@@ -1,0 +1,27 @@
+/* .postContainer {
+  /* display: grid;
+  grid-template-columns: repeat(17, 7fr );
+  align-items: center;
+  width: 100vw; */
+/* } */ 
+
+/* .tableHeaders {
+  border: 1px black solid;
+  font-size: 18px;
+  padding-right: 10px;
+  display: grid;
+  grid-template-columns: repeat(17, 7fr );
+/* } */
+.category {
+  border: 1px black solid;
+  display: grid;
+  grid-template-columns: repeat(15,11fr );
+  padding-right: 110px;
+}
+
+tr{
+    display: grid;
+    grid-template-columns: repeat(17, 7fr );
+    width: 100%;
+  
+  }
